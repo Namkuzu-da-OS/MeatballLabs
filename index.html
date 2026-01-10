@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneSpicyMeatball | Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="sacred-geometry">
+        <svg class="metatron" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="80" class="outer-circle"/>
+            <circle cx="100" cy="100" r="40" class="inner-circle"/>
+            <circle cx="100" cy="40" r="25" class="node"/>
+            <circle cx="152" cy="70" r="25" class="node"/>
+            <circle cx="152" cy="130" r="25" class="node"/>
+            <circle cx="100" cy="160" r="25" class="node"/>
+            <circle cx="48" cy="130" r="25" class="node"/>
+            <circle cx="48" cy="70" r="25" class="node"/>
+            <line x1="100" y1="40" x2="152" y2="70" class="line"/>
+            <line x1="152" y1="70" x2="152" y2="130" class="line"/>
+            <line x1="152" y1="130" x2="100" y2="160" class="line"/>
+            <line x1="100" y1="160" x2="48" y2="130" class="line"/>
+            <line x1="48" y1="130" x2="48" y2="70" class="line"/>
+            <line x1="48" y1="70" x2="100" y2="40" class="line"/>
+            <line x1="100" y1="40" x2="100" y2="160" class="line"/>
+            <line x1="48" y1="70" x2="152" y2="130" class="line"/>
+            <line x1="152" y1="70" x2="48" y2="130" class="line"/>
+        </svg>
+    </div>
+
+    <div class="container">
+        <div class="profile">
+            <div class="avatar">
+                <div class="eye">
+                    <div class="eye-inner">
+                        <div class="pupil"></div>
+                    </div>
+                </div>
+                <div class="triangle"></div>
+            </div>
+            <h1 class="title">OneSpicyMeatball</h1>
+            <p class="subtitle">Seeker of Hidden Patterns</p>
+        </div>
+
+        <div class="links">
+            <a href="https://www.twitch.tv/xonespicymeatballx" target="_blank" class="link-btn">
+                <span class="glyph">&#9670;</span>
+                <span class="link-text">Twitch</span>
+                <span class="link-desc">Live Transmissions</span>
+            </a>
+
+            <a href="https://x.com/OneSpicyMeatBol" target="_blank" class="link-btn">
+                <span class="glyph">&#10022;</span>
+                <span class="link-text">X / Twitter</span>
+                <span class="link-desc">Market Signals & Mysteries</span>
+            </a>
+
+            <a href="about.html" class="link-btn">
+                <span class="glyph">&#9788;</span>
+                <span class="link-text">About</span>
+                <span class="link-desc">The Path Revealed</span>
+            </a>
+        </div>
+
+        <button class="donate-btn" onclick="openModal()">
+            <span class="glyph">&#9830;</span>
+            <span>Support the Journey</span>
+        </button>
+
+        <div class="sigil">&#10038;</div>
+    </div>
+
+    <!-- Donation Modal -->
+    <div class="modal-overlay" id="donateModal" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <span class="glyph">&#9830;</span>
+                <h2>Support the Journey</h2>
+            </div>
+            <p class="donate-intro">Offerings accepted via the following channels:</p>
+
+            <div class="wallet-list">
+                <div class="wallet" onclick="copyAddress('3vBGxcLoPQbv2dNLNTMKzqQK8UdEWgLUnWWgyBtx9w5K', this)">
+                    <span class="wallet-name">Solana</span>
+                    <span class="wallet-address">3vBGxcLo...9w5K</span>
+                    <span class="copy-hint">Click to copy</span>
+                </div>
+
+                <div class="wallet" onclick="copyAddress('bc1q8yztlcngjfu2hy67uyt3eqhxef0277hmfug3ud', this)">
+                    <span class="wallet-name">BTC (SegWit)</span>
+                    <span class="wallet-address">bc1q8yzt...g3ud</span>
+                    <span class="copy-hint">Click to copy</span>
+                </div>
+
+                <div class="wallet" onclick="copyAddress('bc1pcfgzl4665p785usg9vj7435gd0wyd6zhe3yjj48jxt9hul9r4wwqzcxa4s', this)">
+                    <span class="wallet-name">BTC (Taproot)</span>
+                    <span class="wallet-address">bc1pcfgz...xa4s</span>
+                    <span class="copy-hint">Click to copy</span>
+                </div>
+
+                <div class="wallet" onclick="copyAddress('0xa490af8D18111FCEf04CcC7D5Af4D8f1652453F5', this)">
+                    <span class="wallet-name">Ethereum</span>
+                    <span class="wallet-address">0xa490af...53F5</span>
+                    <span class="copy-hint">Click to copy</span>
+                </div>
+
+                <div class="wallet" onclick="copyAddress('0xfaa234cf7724322920a614805225b10eb2979b8dc0bcff573e54ea0472759248', this)">
+                    <span class="wallet-name">Sui</span>
+                    <span class="wallet-address">0xfaa234...9248</span>
+                    <span class="copy-hint">Click to copy</span>
+                </div>
+
+                <div class="wallet" onclick="copyAddress('0xa490af8D18111FCEf04CcC7D5Af4D8f1652453F5', this)">
+                    <span class="wallet-name">Monad</span>
+                    <span class="wallet-address">0xa490af...53F5</span>
+                    <span class="copy-hint">Click to copy</span>
+                </div>
+
+                <div class="wallet" onclick="copyAddress('0xa490af8D18111FCEf04CcC7D5Af4D8f1652453F5', this)">
+                    <span class="wallet-name">Hype</span>
+                    <span class="wallet-address">0xa490af...53F5</span>
+                    <span class="copy-hint">Click to copy</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functions
+        function openModal() {
+            document.getElementById('donateModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (!event || event.target === document.getElementById('donateModal')) {
+                document.getElementById('donateModal').classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Copy address to clipboard
+        function copyAddress(address, element) {
+            navigator.clipboard.writeText(address).then(() => {
+                const hint = element.querySelector('.copy-hint');
+                hint.textContent = 'Copied!';
+                hint.classList.add('copied');
+                setTimeout(() => {
+                    hint.textContent = 'Click to copy';
+                    hint.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Create floating particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            particle.style.opacity = Math.random() * 0.5 + 0.2;
+            particle.innerHTML = ['&#10022;', '&#9672;', '&#9674;', '&#10038;'][Math.floor(Math.random() * 4)];
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 7000);
+        }
+        setInterval(createParticle, 800);
+    </script>
+</body>
+</html>

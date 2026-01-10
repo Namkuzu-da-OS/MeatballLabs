@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Path | OneSpicyMeatball</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="sacred-geometry">
+        <svg class="metatron" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="80" class="outer-circle"/>
+            <circle cx="100" cy="100" r="40" class="inner-circle"/>
+            <circle cx="100" cy="40" r="25" class="node"/>
+            <circle cx="152" cy="70" r="25" class="node"/>
+            <circle cx="152" cy="130" r="25" class="node"/>
+            <circle cx="100" cy="160" r="25" class="node"/>
+            <circle cx="48" cy="130" r="25" class="node"/>
+            <circle cx="48" cy="70" r="25" class="node"/>
+            <line x1="100" y1="40" x2="152" y2="70" class="line"/>
+            <line x1="152" y1="70" x2="152" y2="130" class="line"/>
+            <line x1="152" y1="130" x2="100" y2="160" class="line"/>
+            <line x1="100" y1="160" x2="48" y2="130" class="line"/>
+            <line x1="48" y1="130" x2="48" y2="70" class="line"/>
+            <line x1="48" y1="70" x2="100" y2="40" class="line"/>
+            <line x1="100" y1="40" x2="100" y2="160" class="line"/>
+            <line x1="48" y1="70" x2="152" y2="130" class="line"/>
+            <line x1="152" y1="70" x2="48" y2="130" class="line"/>
+        </svg>
+    </div>
+
+    <div class="container">
+        <div class="profile">
+            <div class="avatar small">
+                <div class="eye">
+                    <div class="eye-inner">
+                        <div class="pupil"></div>
+                    </div>
+                </div>
+                <div class="triangle"></div>
+            </div>
+            <h1 class="title">The Seeker's Path</h1>
+        </div>
+
+        <div class="scroll">
+            <div class="scroll-header">&#10038; TRANSMISSION &#10038;</div>
+            <div class="scroll-content">
+                <p>Welcome, traveler.</p>
+                <p>I navigate the confluence of ancient wisdom and modern markets. The same patterns that govern sacred geometry flow through the charts - fractals within fractals, cycles within cycles.</p>
+                <p>Here you'll find explorations into:</p>
+                <ul>
+                    <li>&#9674; Market cycles & hidden patterns</li>
+                    <li>&#9674; The intersection of consciousness & capital</li>
+                    <li>&#9674; Ancient knowledge, modern application</li>
+                    <li>&#9674; The mysteries beyond the veil</li>
+                </ul>
+                <p class="closing">As above, so below. As within, so without.</p>
+            </div>
+        </div>
+
+        <div class="links">
+            <a href="index.html" class="link-btn">
+                <span class="glyph">&#9668;</span>
+                <span class="link-text">Return to Portal</span>
+                <span class="link-desc">Back to the Gateway</span>
+            </a>
+        </div>
+
+        <div class="sigil">&#10038;</div>
+    </div>
+
+    <script>
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            particle.style.opacity = Math.random() * 0.5 + 0.2;
+            particle.innerHTML = ['&#10022;', '&#9672;', '&#9674;', '&#10038;'][Math.floor(Math.random() * 4)];
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 7000);
+        }
+        setInterval(createParticle, 800);
+    </script>
+</body>
+</html>
