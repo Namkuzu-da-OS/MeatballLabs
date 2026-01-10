@@ -607,6 +607,73 @@ body {
     opacity: 1;
 }
 
+/* Portal Links (Know Thy Self Modal) */
+.portal-list {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.portal-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 20px;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.portal-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
+    transition: left 0.5s ease;
+}
+
+.portal-link:hover::before {
+    left: 100%;
+}
+
+.portal-link:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: var(--gold);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+    transform: translateY(-2px);
+}
+
+.portal-link .glyph {
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 6px;
+    text-shadow: 0 0 10px var(--gold-glow);
+}
+
+.portal-text {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+}
+
+.portal-desc {
+    font-size: 0.75rem;
+    color: var(--gold-light);
+    opacity: 0.6;
+    font-style: italic;
+    margin-top: 4px;
+}
+
 /* Responsive */
 @media (max-width: 480px) {
     .title {

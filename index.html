@@ -76,23 +76,11 @@
                 <span class="link-desc">The Path Revealed</span>
             </a>
 
-            <a href="https://zen.meatball-labs.com/" target="_blank" class="link-btn">
-                <span class="glyph">&#9775;</span>
-                <span class="link-text">Enter Zen From Here</span>
-                <span class="link-desc">Stillness Awaits</span>
-            </a>
-
-            <a href="https://breakthecode.meatball-labs.com/" target="_blank" class="link-btn">
-                <span class="glyph">&#128273;</span>
-                <span class="link-text">Break The Code</span>
-                <span class="link-desc">Decrypt The Mysteries</span>
-            </a>
-
-            <a href="https://ancients.meatball-labs.com/" target="_blank" class="link-btn">
-                <span class="glyph">&#9049;</span>
-                <span class="link-text">The Ancients</span>
-                <span class="link-desc">Wisdom of the Ages</span>
-            </a>
+            <button class="link-btn" onclick="openPortalsModal()">
+                <span class="glyph">&#9673;</span>
+                <span class="link-text">Know Thy Self</span>
+                <span class="link-desc">Enter The Inner Realms</span>
+            </button>
         </div>
 
         <button class="donate-btn" onclick="openModal()">
@@ -101,6 +89,38 @@
         </button>
 
         <div class="sigil">&#10038;</div>
+    </div>
+
+    <!-- Portals Modal -->
+    <div class="modal-overlay" id="portalsModal" onclick="closePortalsModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closePortalsModal()">&times;</button>
+            <div class="modal-header">
+                <span class="glyph">&#9673;</span>
+                <h2>Know Thy Self</h2>
+            </div>
+            <p class="donate-intro">Enter the inner realms of exploration:</p>
+
+            <div class="portal-list">
+                <a href="https://zen.meatball-labs.com/" target="_blank" class="portal-link">
+                    <span class="glyph">&#9775;</span>
+                    <span class="portal-text">Enter Zen From Here</span>
+                    <span class="portal-desc">Stillness Awaits</span>
+                </a>
+
+                <a href="https://breakthecode.meatball-labs.com/" target="_blank" class="portal-link">
+                    <span class="glyph">&#10070;</span>
+                    <span class="portal-text">Break The Code</span>
+                    <span class="portal-desc">Decrypt The Mysteries</span>
+                </a>
+
+                <a href="https://ancients.meatball-labs.com/" target="_blank" class="portal-link">
+                    <span class="glyph">&#9788;</span>
+                    <span class="portal-text">The Ancients</span>
+                    <span class="portal-desc">Wisdom of the Ages</span>
+                </a>
+            </div>
+        </div>
     </div>
 
     <!-- Donation Modal -->
@@ -173,9 +193,25 @@
             }
         }
 
+        // Portals modal functions
+        function openPortalsModal() {
+            document.getElementById('portalsModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePortalsModal(event) {
+            if (!event || event.target === document.getElementById('portalsModal')) {
+                document.getElementById('portalsModal').classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+
         // Close on Escape key
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
+            if (e.key === 'Escape') {
+                closeModal();
+                closePortalsModal();
+            }
         });
 
         // Copy address to clipboard
