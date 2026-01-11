@@ -361,6 +361,39 @@ body {
     font-size: 1.05rem;
 }
 
+.scroll-content .intro {
+    font-size: 1.15rem;
+    color: var(--gold);
+}
+
+.scroll-content .statement {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+.scroll-content .mantra {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1rem;
+    margin: 25px 0;
+}
+
+.scroll-content .section-lead {
+    color: var(--gold-light);
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.scroll-content strong {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.scroll-content em {
+    font-style: italic;
+    color: var(--gold-light);
+}
+
 .scroll-content ul {
     list-style: none;
     margin: 15px 0;
