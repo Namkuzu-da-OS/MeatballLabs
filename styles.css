@@ -626,6 +626,26 @@ body {
     text-align: center;
 }
 
+.understood-btn {
+    display: block;
+    margin: 25px auto 0;
+    padding: 12px 40px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.understood-btn:hover {
+    background: rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 20px var(--gold-glow);
+}
+
 .wallet {
     display: flex;
     align-items: center;

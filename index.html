@@ -64,12 +64,11 @@
                 <span class="link-desc">Markets & Mysteries</span>
             </a>
 
-            <a href="https://t.me/Meaty_Alerts" target="_blank" class="link-btn">
-                <span class="beta-tag">BETA</span>
+            <button class="link-btn" onclick="openMaintenanceModal()">
                 <span class="glyph">&#128226;</span>
                 <span class="link-text">Telegram</span>
                 <span class="link-desc">Spicy Alerts Channel</span>
-            </a>
+            </button>
 
             <a href="about.html" class="link-btn">
                 <span class="glyph">&#9788;</span>
@@ -180,6 +179,19 @@
         </div>
     </div>
 
+    <!-- Maintenance Modal -->
+    <div class="modal-overlay" id="maintenanceModal" onclick="closeMaintenanceModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeMaintenanceModal()">&times;</button>
+            <div class="modal-header">
+                <span class="glyph">&#9881;</span>
+                <h2>Enhancement in Progress</h2>
+            </div>
+            <p class="donate-intro">The Telegram alerts channel is currently being upgraded with advanced signal detection capabilities, expanded market coverage, and improved alert timing. We're building something better for you.</p>
+            <button class="understood-btn" onclick="closeMaintenanceModal()">Understood</button>
+        </div>
+    </div>
+
     <script>
         // Modal functions
         function openModal() {
@@ -207,11 +219,25 @@
             }
         }
 
+        // Maintenance modal functions
+        function openMaintenanceModal() {
+            document.getElementById('maintenanceModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMaintenanceModal(event) {
+            if (!event || event.target === document.getElementById('maintenanceModal')) {
+                document.getElementById('maintenanceModal').classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+
         // Close on Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeModal();
                 closePortalsModal();
+                closeMaintenanceModal();
             }
         });
 
