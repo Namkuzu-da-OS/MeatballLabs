@@ -626,16 +626,48 @@ body {
     text-align: center;
 }
 
+/* Maintenance Modal Specific Styles */
+#maintenanceModal .modal {
+    padding: 40px 35px;
+    text-align: center;
+}
+
+#maintenanceModal .modal-header {
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+#maintenanceModal .modal-header .glyph {
+    font-size: 3rem;
+    color: rgba(180, 160, 200, 0.7);
+    text-shadow: none;
+}
+
+#maintenanceModal .modal-header h2 {
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+#maintenanceModal .donate-intro {
+    font-size: 1rem;
+    font-style: normal;
+    opacity: 0.85;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
 .understood-btn {
     display: block;
-    margin: 25px auto 0;
-    padding: 12px 40px;
+    margin: 30px auto 0;
+    padding: 14px 50px;
     background: transparent;
     border: 1px solid var(--gold);
     color: var(--gold);
     font-family: 'Cinzel', serif;
     font-size: 1rem;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     cursor: pointer;
     transition: all 0.3s ease;
     border-radius: 4px;
