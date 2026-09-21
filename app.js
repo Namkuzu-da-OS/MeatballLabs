@@ -67,8 +67,8 @@
   });
 
   window.addEventListener('scroll', updateHeader, { passive: true });
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 860) closeMenu();
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
   });
   updateHeader();
 })();
