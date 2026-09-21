@@ -7,7 +7,7 @@
   <meta name="description" content="Meatball Labs — ancient insight, future vision. Research, community, self-knowledge and tools for a brighter tomorrow." />
   <title>Meatball Labs | Ancient Insight. Future Vision.</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preload" href="assets/hero-temple.png" as="image" fetchpriority="high" />
+  <link rel="preload" href="assets/hero-board-v2.png" as="image" fetchpriority="high" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -46,7 +46,7 @@
       <a href="about.html">About</a>
     </nav>
 
-    <main id="top">
+    <main id="top" class="world-stage">
       <section class="hero" aria-labelledby="site-title">
         <div class="hero-art" aria-hidden="true">
           <div class="hero-image"></div>
@@ -59,11 +59,9 @@
           <p class="eyebrow">Ideas · People · Tools · A Brighter Tomorrow</p>
           <h1 id="site-title">Meatball Labs</h1>
           <p class="tagline">Ancient Insight. Future Vision.</p>
-          <p class="intro">
-            Curiosity across science, technology, consciousness and history — looking for the patterns that connect them.
-          </p>
+          <p class="intro">A brighter tomorrow is a kinder one.</p>
           <a class="scroll-cue" href="#destinations">
-            <span>Explore</span>
+            <span>Scroll to explore</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
           </a>
         </div>
@@ -73,13 +71,13 @@
         <div class="section-heading">
           <p class="eyebrow">Choose a path</p>
           <h2 id="destinations-title">One world. Many doors.</h2>
-          <p>On desktop, the world opens at once. On mobile, you move through it one destination at a time.</p>
+          <p>Explore research, community and self-knowledge through six doors into one world.</p>
         </div>
 
         <div class="card-grid">
           <a class="portal-card research" href="https://research.meatball-labs.com/">
             <div class="icon-wrap" aria-hidden="true">
-              <svg viewBox="0 0 64 64"><path d="M10 13h17c6 0 9 3 9 9v30c-3-4-7-6-13-6H10V13Z"/><path d="M54 13H37c-6 0-9 3-9 9v30c3-4 7-6 13-6h13V13Z"/></svg>
+              <img src="assets/icon-research-v2.png" alt="" />
             </div>
             <div><h3>Research</h3><p>Explore ideas</p></div>
             <span class="arrow" aria-hidden="true">→</span>
@@ -87,7 +85,7 @@
 
           <a class="portal-card twitch" href="https://www.twitch.tv/0nespicymeatball" target="_blank" rel="noopener noreferrer">
             <div class="icon-wrap" aria-hidden="true">
-              <svg viewBox="0 0 64 64"><path d="M14 8h43v32L43 54H31l-8 7v-7H14V8Z"/><path d="M25 20v15M40 20v15"/></svg>
+              <img src="assets/icon-twitch-v2.png" alt="" />
             </div>
             <div><h3>Twitch</h3><p>Watch live</p></div>
             <span class="arrow" aria-hidden="true">→</span>
@@ -95,7 +93,7 @@
 
           <a class="portal-card x-card" href="https://x.com/OneSpicyMeatBol" target="_blank" rel="noopener noreferrer">
             <div class="icon-wrap" aria-hidden="true">
-              <svg viewBox="0 0 64 64"><path d="M13 10 50 54M51 10 14 54"/></svg>
+              <img src="assets/icon-x-v2.png" alt="" />
             </div>
             <div><h3>X / Twitter</h3><p>Join the conversation</p></div>
             <span class="arrow" aria-hidden="true">→</span>
@@ -103,7 +101,7 @@
 
           <a class="portal-card telegram" href="https://t.me/%2BBkAbnREOApsxMjYx" target="_blank" rel="noopener noreferrer">
             <div class="icon-wrap" aria-hidden="true">
-              <svg viewBox="0 0 64 64"><path d="M7 30 56 10 44 55 29 42 20 50l2-15L7 30Z"/><path d="m22 35 26-18"/></svg>
+              <img src="assets/icon-telegram-v2.png" alt="" />
             </div>
             <div><h3>Telegram</h3><p>Build together</p></div>
             <span class="arrow" aria-hidden="true">→</span>
@@ -111,7 +109,7 @@
 
           <button class="portal-card know" type="button" data-open-know>
             <div class="icon-wrap" aria-hidden="true">
-              <svg viewBox="0 0 64 64"><circle cx="32" cy="18" r="8"/><path d="M18 53c3-10 7-16 14-16s11 6 14 16M20 31c3 4 7 6 12 6s9-2 12-6M14 54h36"/></svg>
+              <img src="assets/icon-know-thyself-v2.png" alt="" />
             </div>
             <div><h3>Know Thyself</h3><p>Expand within</p></div>
             <span class="arrow" aria-hidden="true">→</span>
@@ -119,7 +117,7 @@
 
           <a class="portal-card about" href="about.html">
             <div class="icon-wrap" aria-hidden="true">
-              <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="7"/><path d="M32 4v8M32 52v8M4 32h8M52 32h8M12 12l6 6M46 46l6 6M52 12l-6 6M18 46l-6 6"/></svg>
+              <img src="assets/icon-about-v2.png" alt="" />
             </div>
             <div><h3>About</h3><p>The bigger picture</p></div>
             <span class="arrow" aria-hidden="true">→</span>
@@ -131,8 +129,8 @@
         <div class="manifesto-mark" aria-hidden="true">
           <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="12"/><path d="M50 4v24M50 72v24M4 50h24M72 50h24"/></svg>
         </div>
-        <blockquote>“A more conscious world is a more creative world.”</blockquote>
-        <p>Past informs present. Curiosity connects worlds. Ideas build brighter tomorrows.</p>
+        <blockquote>“A brighter tomorrow is a kinder one.”</blockquote>
+        <p>Same truth. Different tools. Higher perspective. Bigger questions. Kinder humans.</p>
       </section>
     </main>
 
@@ -151,9 +149,9 @@
 
   <dialog class="path-dialog" data-know-dialog aria-labelledby="know-title">
     <button class="dialog-close" type="button" aria-label="Close" data-close-dialog>×</button>
-    <p class="eyebrow">Enter the inner realms</p>
+    <p class="eyebrow">Three paths. One inquiry.</p>
     <h2 id="know-title">Know Thyself</h2>
-    <p class="dialog-intro">Three doors into the same question: what are we, where did we come from, and what can we become?</p>
+    <p class="dialog-intro">Three doors into the same human questions: what are we, what shaped us, and what can we become?</p>
 
     <div class="path-list">
       <a href="https://zen.meatball-labs.com/">
