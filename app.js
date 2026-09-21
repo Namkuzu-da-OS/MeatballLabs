@@ -5,6 +5,9 @@
   const dialog = document.querySelector('[data-know-dialog]');
   const dialogOpeners = document.querySelectorAll('[data-open-know]');
   const dialogCloser = document.querySelector('[data-close-dialog]');
+  const buildingDialog = document.querySelector('[data-building-dialog]');
+  const buildingOpeners = document.querySelectorAll('[data-open-building]');
+  const buildingClosers = document.querySelectorAll('[data-close-building]');
 
   const updateHeader = () => {
     header?.classList.toggle('scrolled', window.scrollY > 28);
@@ -45,6 +48,22 @@
       event.clientX < bounds.left || event.clientX > bounds.right ||
       event.clientY < bounds.top || event.clientY > bounds.bottom;
     if (clickedBackdrop) closeDialog();
+  });
+
+  const openBuilding = () => {
+    closeMenu();
+    if (buildingDialog && typeof buildingDialog.showModal === 'function') buildingDialog.showModal();
+  };
+  const closeBuilding = () => buildingDialog?.close();
+
+  buildingOpeners.forEach((button) => button.addEventListener('click', openBuilding));
+  buildingClosers.forEach((button) => button.addEventListener('click', closeBuilding));
+  buildingDialog?.addEventListener('click', (event) => {
+    const bounds = buildingDialog.getBoundingClientRect();
+    const clickedBackdrop =
+      event.clientX < bounds.left || event.clientX > bounds.right ||
+      event.clientY < bounds.top || event.clientY > bounds.bottom;
+    if (clickedBackdrop) closeBuilding();
   });
 
   window.addEventListener('scroll', updateHeader, { passive: true });

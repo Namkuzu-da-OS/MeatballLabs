@@ -8,7 +8,7 @@
   <title>Meatball Labs | Ancient Insight. Future Vision.</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preload" href="assets/hero-board-v2.png" as="image" fetchpriority="high" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=3" />
 </head>
 <body>
   <a class="skip-link" href="#destinations">Skip to destinations</a>
@@ -24,7 +24,7 @@
       </a>
 
       <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="https://research.meatball-labs.com/">Research</a>
+        <button type="button" data-open-building>Research</button>
         <a href="https://www.twitch.tv/0nespicymeatball" target="_blank" rel="noopener noreferrer">Twitch</a>
         <a href="https://x.com/OneSpicyMeatBol" target="_blank" rel="noopener noreferrer">X</a>
         <a href="https://t.me/%2BBkAbnREOApsxMjYx" target="_blank" rel="noopener noreferrer">Telegram</a>
@@ -38,7 +38,7 @@
     </header>
 
     <nav class="mobile-menu" aria-label="Mobile navigation" data-mobile-menu hidden>
-      <a href="https://research.meatball-labs.com/">Research</a>
+      <button type="button" data-open-building>Research</button>
       <a href="https://www.twitch.tv/0nespicymeatball" target="_blank" rel="noopener noreferrer">Twitch</a>
       <a href="https://x.com/OneSpicyMeatBol" target="_blank" rel="noopener noreferrer">X</a>
       <a href="https://t.me/%2BBkAbnREOApsxMjYx" target="_blank" rel="noopener noreferrer">Telegram</a>
@@ -75,13 +75,13 @@
         </div>
 
         <div class="card-grid">
-          <a class="portal-card research" href="https://research.meatball-labs.com/">
+          <button class="portal-card research" type="button" data-open-building>
             <div class="icon-wrap" aria-hidden="true">
               <img src="assets/icon-research-v2.png" alt="" />
             </div>
             <div><h3>Research</h3><p>Explore ideas</p></div>
             <span class="arrow" aria-hidden="true">→</span>
-          </a>
+          </button>
 
           <a class="portal-card twitch" href="https://www.twitch.tv/0nespicymeatball" target="_blank" rel="noopener noreferrer">
             <div class="icon-wrap" aria-hidden="true">
@@ -140,7 +140,7 @@
         <span>For curious minds and brave builders.</span>
       </div>
       <div class="footer-links">
-        <a href="https://research.meatball-labs.com/">Research</a>
+        <button type="button" data-open-building>Research</button>
         <a href="about.html">About</a>
         <button type="button" data-open-know>Know Thyself</button>
       </div>
@@ -172,6 +172,26 @@
     </div>
   </dialog>
 
-  <script src="app.js" defer></script>
+
+  <dialog class="path-dialog building-dialog" data-building-dialog aria-labelledby="building-title">
+    <button class="dialog-close" type="button" aria-label="Close" data-close-building>&times;</button>
+
+    <div class="building-mark" aria-hidden="true">
+      <svg viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="14" />
+        <path d="M32 3v15M32 46v15M3 32h15M46 32h15" />
+      </svg>
+      <span class="building-ring"></span>
+    </div>
+
+    <p class="eyebrow">The work continues</p>
+    <h2 id="building-title">We&rsquo;re building</h2>
+    <div class="building-rule" aria-hidden="true"></div>
+    <p class="dialog-intro">Research is being rebuilt from the ground up. New design, sharper signal, and a good deal more beneath the surface.</p>
+    <p class="building-note">It opens when it&rsquo;s ready.</p>
+    <button class="dialog-ok" type="button" data-close-building>Understood</button>
+  </dialog>
+
+  <script src="app.js?v=3" defer></script>
 </body>
 </html>
