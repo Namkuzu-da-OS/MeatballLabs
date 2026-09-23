@@ -1,0 +1,457 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "The Perfect Network Design — Evaluation Criteria",
+  "identifier": "PND-CRITERIA",
+  "version": "1.1.0",
+  "datePublished": "2026-09-22",
+  "creator": {
+    "@type": "Organization",
+    "name": "Meatball Labs"
+  },
+  "license": "Engineering analysis. Not investment advice.",
+  "description": "Twenty-five normative design criteria for decentralized money infrastructure. They encode stated preferences (user authority, independent verification, replaceability, survival under pressure); they are not protocol-neutral laws, and one of them (PND-C08) is labelled a hypothesis. Each criterion names the human need it serves, the test that decides it, the evidence class that satisfies that test and the failure mode it prevents, so a language model can trace any verdict from evidence up to the purpose it serves.",
+  "usage": {
+    "purpose": "Score any protocol, chain or piece of decentralized infrastructure against a fixed, dated standard, and trace each verdict to the human needs it serves.",
+    "rules": [
+      "Adjudicate each criterion independently. Do not average them into a single score: a protocol can satisfy nineteen criteria and be defeated by the twentieth.",
+      "Every verdict must cite evidence of the class named in `evidence_required`. Marketing material, a whitepaper claim, token price, market capitalisation, TVL, node counts and community size are never evidence.",
+      "If evidence of the required class cannot be located, the verdict is UNMEASURED. It is a legitimate and informative result. Do not substitute inference for it.",
+      "If a criterion is outside the role the project claims (a settlement layer is not a file store), the verdict is NOT_APPLICABLE. Never use UNMEASURED or FAILS for a scope mismatch.",
+      "Verdicts decay. Stamp every adjudication with the date of the evidence, not the date of the query.",
+      "Trace every verdict upward: criterion -> the need it serves -> the purpose. A criterion whose kind is \"hypothesis\" is a design preference; report it, but do not treat its failure as a failure of a human need."
+    ],
+    "verdicts": {
+      "MEETS": "Evidence of the required class establishes the criterion is satisfied.",
+      "PARTIAL": "Satisfied in architecture but not in deployment, or on some dimensions of the test and not others. State which.",
+      "FAILS": "Evidence establishes the criterion is not satisfied.",
+      "UNMEASURED": "No evidence of the required class could be located. Not a synonym for FAILS.",
+      "NOT_APPLICABLE": "The criterion is outside the role the project claims. Not a defect."
+    },
+    "evaluation_prompt": "Evaluate <PROJECT> against PND-CRITERIA v1.1.0 (The Perfect Network Design).\nFirst state the role the project claims, the deployment you examined, and your evidence cutoff date.\nFor each of the 25 criteria return: its ID; a verdict of MEETS, PARTIAL, FAILS, UNMEASURED or NOT_APPLICABLE; and every human need (N1-N9) it serves. For MEETS, PARTIAL or FAILS, give the dated evidence with a link and say whether it shows deployed behaviour or only a specification. For UNMEASURED, list what you searched and your search date. For NOT_APPLICABLE, name the role mismatch. For a criterion marked as a hypothesis, return HYPOTHESIS instead of a need and do not treat its failure as harm to users.\nFor PARTIAL or FAILS, name the failure mode and say whether it is architectural, deployment, measurement, usability, economic or governance.\nRoadmaps, token price, TVL, market capitalisation, node counts and popularity are not evidence. Label vendor claims. Keep a stock apart from a flow, data availability apart from storage, and pool share apart from hardware ownership.\nDo not produce a composite score or a rank.\nThen answer in plain language: Which human needs does this project serve, and which does it put at risk? Do you accept that those needs follow from the stated purpose (flag any premise you reject)? What evidence would change your verdicts?"
+  },
+  "criteria": [
+    {
+      "id": "PND-C01",
+      "title": "The user must be the root of authority",
+      "statement": "Cryptographic credentials held by the individual, not a corporation, bank, government, validator, foundation or application, establish authority over value, identity and data. Intermediaries may assist; none may be structurally required.",
+      "test": "Can the user replace the wallet, the application, the service provider and the hosting infrastructure without losing control of value, identity or data?",
+      "evidence_required": "Protocol specification showing key-derived authority, plus a demonstrated path to move between independent client implementations without loss.",
+      "failure_mode": "If replacing a company destroys your identity, the company owned your identity.",
+      "serves": [
+        "N1",
+        "N5"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C02",
+      "title": "Verification should replace permission",
+      "statement": "Participants determine validity independently by applying the rules, rather than relying on an institution's authorisation.",
+      "test": "Can an independent participant answer signature validity, ownership, existence, double-spend, value conservation, state-transition legality and consensus compliance, and obtain the same result as everyone else following the specification?",
+      "evidence_required": "A published specification sufficient to implement a validator, and at least one validating implementation not controlled by the protocol's originating organisation.",
+      "failure_mode": "The architecture silently reverts from 'does this satisfy the rules' to 'who approved this'.",
+      "serves": [
+        "N1",
+        "N4"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C03",
+      "title": "Consensus must be distributed across independent actors",
+      "statement": "Control is measured by how many independent actors must cooperate to censor or corrupt the system — not by raw node or validator count. Independence is required across ownership, geography, jurisdiction, infrastructure, software, economic interest and operational control.",
+      "test": "What is the Nakamoto coefficient for block production and for finality, computed over operators rather than machines?",
+      "evidence_required": "Dated block-production or stake distribution by operator from an independent measurement source.",
+      "failure_mode": "Ten thousand machines under one organisation are one actor. Advertised validator counts conceal it.",
+      "serves": [
+        "N1",
+        "N5",
+        "N7"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C04",
+      "title": "Multiple independent implementations should exist",
+      "statement": "Consensus-critical software must exist as several implementations, written independently against the same specification, continuously testing one another.",
+      "test": "How many implementations can independently validate consensus, were written by different teams, and do not share a codebase? A fork of an existing client is development diversity, not consensus diversity, and does not count.",
+      "evidence_required": "Repository lineage for each claimed implementation, plus its production share. Shared-ancestry clients must be disclosed as such.",
+      "failure_mode": "Ownership is distributed and software risk is not. A single consensus bug propagates across the entire network simultaneously.",
+      "serves": [
+        "N3",
+        "N7"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C05",
+      "title": "The specification should be greater than any implementation",
+      "statement": "The rules are defined by a rigorous specification, not by whatever one repository happens to do. Critical properties should carry mathematical definitions and, where feasible, machine-checkable proofs.",
+      "test": "Does a specification exist independently of the reference client, with shared test vectors enabling differential verification between implementations?",
+      "evidence_required": "A published specification, a conformance or test-vector suite, and evidence of differential testing across implementations.",
+      "failure_mode": "The gap between what humans intended, what the specification says, what the software implements and what actually happens goes unmeasured.",
+      "serves": [
+        "N3",
+        "N7"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C06",
+      "title": "Monetary integrity must be independently verifiable",
+      "statement": "Unauthorised creation of value must be impossible under stated security assumptions, or detectable by participants — without trusting an issuer, developer, auditor, foundation or database operator.",
+      "test": "Can a participant verify total supply and the conservation of value from protocol data alone? If the system is private, is there a publicly accounted boundary that bounds aggregate value?",
+      "evidence_required": "Protocol-enforced accounting rules, and for shielded systems a published integrity construction — preferably machine-checked.",
+      "failure_mode": "Privacy makes this harder. It does not make it less important. Counterfeiting inside a private pool is undetectable in retrospect. Note the limit: this criterion detects UNAUTHORISED issuance. Authorised dilution is tested by PND-C21, and purchasing power by nothing here, because no protocol controls it.",
+      "serves": [
+        "N4",
+        "N3"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C07",
+      "title": "Privacy should be an architectural property",
+      "statement": "The system reveals what must be proven and conceals what is unrelated to validity. The objective is data minimisation, not secrecy.",
+      "test": "Can a participant prove authorisation, valid ownership, absence of double-spend, conservation of value and consensus compliance without revealing identity, balance, counterparties, unrelated transactions or complete history?",
+      "evidence_required": "Protocol documentation of the disclosure model, plus the default setting — privacy available is not privacy deployed.",
+      "failure_mode": "Removing financial intermediaries while constructing a permanent global financial surveillance database solves half the problem.",
+      "serves": [
+        "N6"
+      ],
+      "kind": "requirement",
+      "applies_to": "Applies to systems that carry value or payments."
+    },
+    {
+      "id": "PND-C08",
+      "title": "Specialized systems should perform specialized jobs",
+      "statement": "Monetary integrity, execution, identity, storage and transport are separate responsibilities with conflicting optimisation targets and should not be forced into one system.",
+      "test": "Does the layer that defines the monetary base also have to execute every application, store every object and carry every message?",
+      "evidence_required": "Architecture documentation showing which responsibilities are separated and which interfaces join them.",
+      "failure_mode": "One system optimising simultaneously for conflicting objectives does all of them worse and fails at all of them together.",
+      "serves": [],
+      "kind": "hypothesis",
+      "note": "A design preference, not a human need. Test it against integrated alternatives rather than assuming it. A failure here is not by itself evidence that a system fails its users."
+    },
+    {
+      "id": "PND-C09",
+      "title": "Every component should be replaceable",
+      "statement": "The system assumes companies die, teams disappear, implementations carry catastrophic bugs, governments ban infrastructure and better technology appears. Replacing a component must not require destroying what sits above it.",
+      "test": "Name the component whose removal ends the system. If one exists, the criterion fails.",
+      "evidence_required": "Defined interfaces and guarantees between layers; evidence of at least one component having actually been replaced or credibly substitutable.",
+      "failure_mode": "Modularity is meaningless if one module becomes indispensable. There must be no sacred blockchain.",
+      "serves": [
+        "N1",
+        "N7"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C10",
+      "title": "Failure must be contained",
+      "statement": "Explicit failure domains prevent a defect in one module from propagating into others.",
+      "test": "Can a bug in an execution environment compromise the monetary base? Can a storage failure destroy identity? Can a cross-network mechanism manufacture unlimited claims on another system?",
+      "evidence_required": "Documented failure-domain boundaries, and incident history showing containment held — or did not.",
+      "failure_mode": "A modular system without containment is a monolith with more attack surface.",
+      "serves": [
+        "N3",
+        "N7"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C11",
+      "title": "Interoperability must not recreate the bank",
+      "statement": "One system should cryptographically verify another rather than being told by an intermediary what happened. Atomic exchange and verification against the counterparty's consensus (light clients, zero-knowledge proofs, proof-carrying state) qualify. Threshold attestation qualifies only when its stated corruption threshold and operator independence meet the project's threat model; a multisig label alone neither qualifies nor disqualifies it.",
+      "test": "For each cross-network path in production, is state verified against consensus proofs, or attested by a validator set, multisig, custodian or oracle?",
+      "evidence_required": "The verification mechanism of each live bridge path, by volume — not the mechanism the documentation prefers.",
+      "failure_mode": "Two decentralized endpoints joined by a centralized middle is a centralized system at the moment the middle matters.",
+      "serves": [
+        "N9",
+        "N1"
+      ],
+      "kind": "requirement",
+      "applies_to": "Applies only where the system offers a cross-network path."
+    },
+    {
+      "id": "PND-C12",
+      "title": "Governance must resist capture without becoming paralyzed",
+      "statement": "A monetary protocol must resist unnecessary change and remain able to execute necessary change — cryptographic migration, vulnerability response — safely. Developers propose; they do not hold sovereign authority over users. Foundations coordinate; they do not rule.",
+      "test": "Who can change consensus rules, and what can users and independent operators do to refuse? Has a necessary change ever actually been executed, and has an unnecessary one ever actually been refused?",
+      "evidence_required": "The documented change process, plus at least one historical instance of adoption and one of refusal.",
+      "failure_mode": "Absolute immutability fails when cryptographic assumptions do. Casual mutability fails immediately.",
+      "serves": [
+        "N4",
+        "N7"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C13",
+      "title": "Development velocity is a security variable",
+      "statement": "Residual security risk is a function of the rate of change relative to the rate of verification. Not 'fast is bad' — the ratio is the variable. Layers closest to irreversible value must move slowest.",
+      "test": "Is verification capacity — testing, fuzzing, differential checks, formal proof, adversarial review — scaling with the rate of consensus-critical change?",
+      "evidence_required": "Change cadence for consensus-critical components alongside verification cadence for the same components. Both, or neither is informative.",
+      "failure_mode": "A codebase changing faster than it can be examined accumulates unexamined surface, and unexamined surface is where bugs live. Raising deployment frequency while failure rate worsens is faster instability, not improvement.",
+      "serves": [
+        "N3",
+        "N7"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C14",
+      "title": "Security must be continuous",
+      "statement": "For infrastructure protecting generational wealth, an audit is not the end of security work. Formal verification, continuous fuzzing, differential client testing, independent audits, adversarial review, bug bounties and real-world exposure are all required; no one technique is sufficient.",
+      "test": "Does the verification method match the complexity class of what was shipped, and is it capable of catching the bug class that component can produce? Is the review continuous and funded, or episodic?",
+      "evidence_required": "Audit history with dates, scope and findings; formal-verification coverage; funded continuous review arrangements.",
+      "failure_mode": "Human audit is adequate for a narrow monetary protocol and demonstrably not adequate for a zero-knowledge circuit where soundness failure is silent and irreversible. Adversaries are automated now; the verification side of the ratio must rise to meet them.",
+      "serves": [
+        "N3",
+        "N7"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C15",
+      "title": "Critical infrastructure must also be decentralized",
+      "statement": "Consensus decentralization is undone by concentration in RPC providers, cloud platforms, hosting vendors, DNS, app stores and web interfaces.",
+      "test": "Does the system remain usable if cloud providers refuse service, DNS fails, RPC companies disappear, app stores remove software, common websites become inaccessible or routes are blocked? What share of consensus participation sits behind a single hosting vendor?",
+      "evidence_required": "Hosting and provider concentration figures by stake or hashrate, dated. Peer-to-peer access paths and transport alternatives.",
+      "failure_mode": "One vendor's routing table is a consensus-security property whether or not anyone tracks it as one.",
+      "serves": [
+        "N7",
+        "N1"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C16",
+      "title": "Identity should belong to the individual",
+      "statement": "The user holds the cryptographic root of identity. Applications consume identity; they do not own it. Changing applications must not require becoming a different person.",
+      "test": "Can the user rotate keys, delegate signing to a device or agent, revoke that delegation, recover from loss and pass identity on — without a custodian, and without losing the social graph that constitutes the identity?",
+      "evidence_required": "Standardised and actually-implemented mechanisms for rotation, threshold control, recovery, delegation and revocation. A deprecated or single-successor scheme does not satisfy this.",
+      "failure_mode": "'One private key equals one human forever' is not an identity system. People lose keys, devices are compromised, families need inheritance and organisations need delegated authority.",
+      "serves": [
+        "N1",
+        "N8"
+      ],
+      "kind": "requirement",
+      "applies_to": "Applies to systems that provide identity."
+    },
+    {
+      "id": "PND-C17",
+      "title": "Data should be independent of location",
+      "statement": "Information is verifiable independently of the machine currently storing it. The question becomes 'give me the data matching this cryptographic identity', not 'which server has my data'.",
+      "test": "Is content addressed cryptographically, can multiple independent hosts serve the same authenticated content, and is persistence guaranteed by something other than one operator's goodwill?",
+      "evidence_required": "Content-addressing scheme, plus the persistence mechanism and its failure mode — contractual, economic or voluntary.",
+      "failure_mode": "Content addressing guarantees integrity, not availability. Unpinned data is garbage-collected and expired deals lose data with no protocol-level alarm.",
+      "serves": [
+        "N1",
+        "N9"
+      ],
+      "kind": "requirement",
+      "applies_to": "Applies to systems that store or serve data."
+    },
+    {
+      "id": "PND-C18",
+      "title": "Economics must preserve decentralization",
+      "statement": "A network can be technically permissionless while becoming economically impossible for ordinary independent participants to operate. That is still centralization pressure.",
+      "test": "Is independent participation economically viable at current scale — after economies of scale, specialized hardware, delegated stake, infrastructure cost, bandwidth, storage, energy, capital requirements and compounding ownership?",
+      "evidence_required": "Cost of independent participation against realistic returns, and the observed trend in independent-operator count.",
+      "failure_mode": "Permitted in theory, impossible in practice, and the metrics keep reporting the theory.",
+      "serves": [
+        "N7",
+        "N1"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C19",
+      "title": "Assume a nation-state adversary",
+      "statement": "The standard is not whether the system works when everyone cooperates, but whether it continues working when powerful actors actively attempt to stop it. The network need not assume governments are malicious; it must not require them to remain benevolent.",
+      "test": "For each property separately (ledger integrity, the network staying up, a user's ability to transact, privacy, convertibility to other assets), which state capabilities does it survive: seizing servers, regulating companies, pressuring providers, monitoring and correlating traffic, shutting down connectivity, controlling hardware supply, prosecuting operators and coercing key holders? Answer per property; a system can preserve integrity and still lose availability.",
+      "evidence_required": "Threat model naming state-level adversaries, and evidence of the system operating under real pressure rather than hypothetically.",
+      "failure_mode": "Designs that are resilient only against accident, and claims of \"resistance\" that do not say which property survives which attack.",
+      "serves": [
+        "N7",
+        "N5",
+        "N6"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C20",
+      "title": "The system must survive its own success",
+      "statement": "Success generates centralization pressure — large custodians, miners, validators, infrastructure providers, applications, holders, political organisations and lobbying.",
+      "test": "As the network has grown, have its concentration metrics improved or deteriorated? Measure the trend, not the snapshot.",
+      "evidence_required": "The same concentration metrics measured at two or more dated points, showing direction.",
+      "failure_mode": "Growth slowly recreates the institutions the system was designed to remove, and every individual step looks reasonable.",
+      "serves": [
+        "N7",
+        "N1"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C21",
+      "title": "Issuance must be set by rules no single party can change",
+      "statement": "The supply schedule is defined in consensus rules every participant can read, and cannot be altered by a developer, foundation, validator set or issuer without the consent of the independent operators who validate it.",
+      "test": "What is the issuance schedule? Who can change it, by what process, and has it ever been changed? What share of supply went to insiders at launch, and what dilution continues today?",
+      "evidence_required": "The consensus code that fixes issuance, the rule-change history, and launch and ongoing distribution records.",
+      "failure_mode": "A ledger can count perfectly (PND-C06) and still dilute its holders by policy. Supply integrity is not policy integrity, and neither is purchasing power, which is a market outcome no protocol can guarantee.",
+      "serves": [
+        "N4",
+        "N3"
+      ],
+      "kind": "requirement",
+      "applies_to": "Applies to systems that issue a monetary asset."
+    },
+    {
+      "id": "PND-C22",
+      "title": "Ordinary people must be able to use it without surrendering control",
+      "statement": "A first-time user, unaided, can receive, pay, back up, recover from a lost device and pass value on, without a custodian. Correct software that people cannot use protects no one.",
+      "test": "What share of ordinary users complete those tasks, how often do they make unrecoverable errors, and how often does recovery succeed? What does the self-custody path cost them in time and money?",
+      "evidence_required": "Independent usability studies with task-completion and error rates, and recovery outcome data. A vendor's description of its own onboarding is not evidence.",
+      "failure_mode": "People migrate to custodial or operator-controlled paths when self-custody is difficult, expensive, illiquid or poorly integrated. Distinguishing those causes needs independent usability and adoption evidence; this review could not separate them.",
+      "serves": [
+        "N8",
+        "N2",
+        "N1"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C23",
+      "title": "Payments must work under ordinary conditions",
+      "statement": "A payment system is judged by the payments that succeed, not by its theoretical capacity.",
+      "test": "Measured payment success rate, time to a confirmation the recipient can rely on, fee predictability, behaviour at low bandwidth or intermittent connectivity, and what happens to the money when a payment fails.",
+      "evidence_required": "Measured payment outcomes from independent sources, dated. Simulations and throughput claims are not evidence.",
+      "failure_mode": "Capacity is advertised; success rate is experienced.",
+      "serves": [
+        "N2"
+      ],
+      "kind": "requirement",
+      "applies_to": "Applies to systems offered for payments."
+    },
+    {
+      "id": "PND-C24",
+      "title": "Software must be verifiable before it is trusted",
+      "statement": "Users should not have to trust one distributor's binary. Independent parties rebuild the released software from source, get the same result, and publish signed attestations.",
+      "test": "Can independent builders reproduce the released binaries bit for bit? Do several publish signed attestations? Does the default install path check them?",
+      "evidence_required": "Reproducible-build documentation and a public attestation record from builders outside the release team.",
+      "failure_mode": "A threat model that names nation-states and ends at downloading an opaque binary from one server is internally inconsistent.",
+      "serves": [
+        "N7",
+        "N1"
+      ],
+      "kind": "requirement"
+    },
+    {
+      "id": "PND-C25",
+      "title": "There must be more than one way in and out",
+      "statement": "Converting to and from other assets and local currency must not depend on one company or one custodian. Native exchange (atomic swaps, verified cross-chain transfers) and peer-to-peer fiat routes should exist and be usable.",
+      "test": "How many independent routes can a user take to enter and exit, which of them avoid a custodial account, and what share of real volume uses those?",
+      "evidence_required": "An inventory of live routes with their trust model and volume, dated.",
+      "failure_mode": "Behind a decentralized network, one regulated exchange and one bank become the system's real front door. Peer-to-peer routes remove the exchange; they do not remove the bank, because fiat still settles on national rails.",
+      "serves": [
+        "N1",
+        "N5",
+        "N7"
+      ],
+      "kind": "requirement"
+    }
+  ],
+  "notes": {
+    "on_composite_scores": "This set deliberately emits no aggregate. A rank is the format most likely to survive being quoted out of context incorrectly; a dated row-by-row adjudication survives it correctly.",
+    "on_deployment": "Several criteria distinguish existence from deployment. Where a mechanism exists and is not running, the verdict is PARTIAL with the shortfall named as a deployment gap. The source review found that pattern repeatedly and could not establish its cause.",
+    "source": "The Perfect Network Design, Meatball Labs, September 2026 (edition of 2026-09-23). https://meatball-labs.com/research/perfect-network-design/",
+    "on_normativity": "Earlier editions called these criteria \"clean-room\" and \"derived without reference to any existing protocol\". That overstated them. They are the authors' stated design commitments, and a reader who rejects a premise should reject the criteria built on it."
+  },
+  "dateModified": "2026-09-23",
+  "framework": {
+    "chain": "purpose -> human needs -> criteria -> evidence -> verdict",
+    "premises_vs_findings": "The purpose and the needs are PREMISES: stated values this review adopts and a reader may reject. Criteria are design commitments derived from them. Only verdicts backed by dated evidence are FINDINGS.",
+    "purpose": {
+      "status": "premise",
+      "statement": "Distributed ledgers exist to let people who do not trust each other agree on who owns what, and on what changed, without appointing one operator everyone must rely on.",
+      "primary_source": {
+        "quote": "A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution.",
+        "source": "Satoshi Nakamoto, Bitcoin: A Peer-to-Peer Electronic Cash System (2008), abstract",
+        "url": "https://bitcoin.org/bitcoin.pdf"
+      },
+      "does_not_provide": "On its own the technology provides none of: stable purchasing power, truth about the outside world, privacy, durable file storage, network anonymity, or ease of use. Each has to be built, and each is a place a design can fail."
+    },
+    "question": {
+      "status": "premise",
+      "text": "What do we have in the existing projects that can fill in the gaps and be a modular, coherent, decentralized, nation-state-attack-resistant ecosystem of networks that can work together to provide an alternative system of payment, store of value, security, and protection against devaluation of currency?",
+      "asked_by": "the author, a network engineer"
+    }
+  },
+  "needs": [
+    {
+      "id": "N1",
+      "name": "Control and exit",
+      "statement": "Hold and move value without anyone's permission, and leave any provider without losing it.",
+      "from_the_question": "decentralized; an alternative system",
+      "status": "premise"
+    },
+    {
+      "id": "N2",
+      "name": "Pay",
+      "statement": "Pay anyone, reliably, at a usable cost.",
+      "from_the_question": "payment",
+      "status": "premise"
+    },
+    {
+      "id": "N3",
+      "name": "Keep",
+      "statement": "Hold value across time without depending on a custodian staying honest or solvent.",
+      "from_the_question": "store of value",
+      "status": "premise"
+    },
+    {
+      "id": "N4",
+      "name": "Not be diluted",
+      "statement": "Issuance set by rules no single party can change. This is supply integrity, not purchasing power: what a unit buys is a market outcome no protocol can promise.",
+      "from_the_question": "protection against devaluation of currency",
+      "status": "premise"
+    },
+    {
+      "id": "N5",
+      "name": "Not be seized or frozen",
+      "statement": "No single party can confiscate, freeze or reverse what a user holds.",
+      "from_the_question": "security",
+      "status": "premise"
+    },
+    {
+      "id": "N6",
+      "name": "Privacy and safety",
+      "statement": "Transact without publishing one's finances, counterparties or location to the world.",
+      "from_the_question": "security",
+      "status": "premise"
+    },
+    {
+      "id": "N7",
+      "name": "Survive pressure",
+      "statement": "Keep working when a powerful actor tries to stop it, with the properties that survive named. Resistance raises an attacker's cost; it is not immunity.",
+      "from_the_question": "nation-state-attack-resistant",
+      "status": "premise"
+    },
+    {
+      "id": "N8",
+      "name": "Usable by ordinary people",
+      "statement": "Set up, recover from mistakes and lost devices, and pass value on, without an expert or a custodian.",
+      "from_the_question": "implicit in \"an alternative system\"; this review found usability among the causes it could not separate from liquidity and integration",
+      "status": "premise"
+    },
+    {
+      "id": "N9",
+      "name": "Work together",
+      "statement": "Exchange value and state across systems, and run shared agreements, without a custodian in the middle.",
+      "from_the_question": "modular, coherent; networks that can work together",
+      "status": "premise"
+    }
+  ]
+}

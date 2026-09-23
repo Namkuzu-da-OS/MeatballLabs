@@ -1,0 +1,1782 @@
+{
+ "$comment": "SOURCE SPINE. Every number rendered on the page comes from this file. A value with no source_url does not render; a not_found claim renders only as a labelled gap, with its search scope in the caveat. Fields: value (as displayed), as_of (date of the evidence, not of publication; null for a not_found claim, which carries searched_as_of, the date of the last search, instead), source_url, source_type (primary | aggregator | derived | computed), measures (what the number actually counts - this travels with the number and is displayed), caveat (what a hostile reader will say), status (verified | unverified | not_found | disputed | withdrawn). withdrawn = a figure we published and retracted; it stays on the record, struck through. status:unverified means DO NOT SHIP until a human reads the underlying document.",
+ "edition": "2026-09-23",
+ "version": "0.1.0",
+ "rules": [
+  "No source_url, no value: an affirmative claim without a source never renders as a number. A not_found claim renders only as a labelled gap.",
+  "not_found is a publishable value. It renders as an em dash and the gap is a finding.",
+  "Where two reputable sources disagree, both are stored and the page prints the disagreement. Never average.",
+  "source_type 'derived' or 'computed' must be labelled as such on the page.",
+  "Never accept a search result that returns our own published figure back to us. That is an echo, not a confirmation."
+ ],
+ "claims": {
+  "btc.pool.foundry": {
+   "value": "24.34%",
+   "as_of": "2026-09-22",
+   "source_url": "https://mempool.space/api/v1/mining/pools/1w",
+   "source_type": "computed",
+   "measures": "share of blocks in trailing 7d by coinbase-tag attribution (248 of 1019 blocks)",
+   "caveat": "Pool share is a routing statistic, not hardware ownership. Miners redirect hashrate in minutes.",
+   "status": "verified",
+   "supersedes": "25.1% as of 2026-09-20"
+  },
+  "btc.pool.antpool": {
+   "value": "21.20%",
+   "as_of": "2026-09-22",
+   "source_url": "https://mempool.space/api/v1/mining/pools/1w",
+   "source_type": "computed",
+   "measures": "216 of 1019 blocks, trailing 7d",
+   "caveat": "Previously published as 19.4%; on-chain recomputation is 1.8pp higher.",
+   "status": "verified"
+  },
+  "btc.pool.f2pool": {
+   "value": "15.51%",
+   "as_of": "2026-09-22",
+   "source_url": "https://mempool.space/api/v1/mining/pools/1w",
+   "source_type": "computed",
+   "measures": "158 of 1019 blocks, trailing 7d",
+   "status": "verified"
+  },
+  "btc.pool.top3": {
+   "value": "61.04%",
+   "as_of": "2026-09-22",
+   "source_url": "https://mempool.space/api/v1/mining/pools/1w",
+   "source_type": "computed",
+   "measures": "622 of 1019 blocks, trailing 7d",
+   "cross_check": {
+    "value": "top-2 44.6%",
+    "as_of": "2026-09-18",
+    "source_url": "https://shattered.io/bitcoin-mining-pool-reorg-centralization-2026/",
+    "source_type": "aggregator"
+   },
+   "status": "verified",
+   "recheck": {
+    "as_of": "2026-09-23",
+    "value": "60.15% (Foundry 23.92, AntPool 20.69, F2Pool 15.44; 991 blocks)",
+    "source_url": "https://mempool.space/api/v1/mining/pools/1w",
+    "note": "within drift; coefficient still 3"
+   }
+  },
+  "btc.nakamoto": {
+   "value": "3",
+   "as_of": "2026-09-22",
+   "source_url": "https://mempool.space/api/v1/mining/pools/1w",
+   "source_type": "computed",
+   "measures": "smallest number of pools whose combined block share exceeds 50%",
+   "caveat": "Holds on 24h, 3d, 7d and 30d windows. Robust to window choice.",
+   "status": "verified"
+  },
+  "btc.impl.btcd": {
+   "value": "15 nodes (0.058%)",
+   "as_of": "2026-09-22",
+   "source_url": "https://btcnodes.io/api/v1/snapshots/latest/",
+   "source_type": "computed",
+   "measures": "reachable listening nodes reporting a btcd user agent, of 25,763 validated nodes",
+   "caveat": "User agent is a self-reported free-text field and is editable. Crawlers see only listening nodes; unreachable peers are estimated at 2-3x reachable ones, and those estimates disagree.",
+   "status": "verified"
+  },
+  "btc.impl.independent_total": {
+   "value": "0.09%",
+   "as_of": "2026-09-23",
+   "source_url": "https://btcnodes.io/api/v1/snapshots/latest/",
+   "source_type": "computed",
+   "measures": "reachable nodes on implementations not derived from Bitcoin Core: btcd 19, utreexod 3, libbitcoin 2, of 25,767 (0.093%)",
+   "caveat": "An earlier count wrongly included Bitcoin Unlimited and Classic, which are Core forks; excluding them leaves the share unchanged at 0.09%. Excludes Knots (a Core fork, 13-17% of nodes depending on the crawler) and Floresta (wraps Core's validation engine).",
+   "status": "verified"
+  },
+  "btc.impl.floresta": {
+   "value": "0 detectable nodes",
+   "as_of": "2026-09-22",
+   "source_url": "https://github.com/vinteumorg/Floresta",
+   "source_type": "computed",
+   "measures": "no Floresta user agent across 25,763 reachable nodes",
+   "caveat": "Report as no detectable REACHABLE presence, not as zero deployments. Floresta is designed to be embedded and non-listening. Separately, by its own README it uses rust-bitcoinkernel, a wrapper around Core's libbitcoinkernel, so it is resource diversity and not consensus diversity.",
+   "status": "verified"
+  },
+  "btc.audit.first": {
+   "value": "2025, ~100 man-days, P2P scope",
+   "as_of": "2025-11",
+   "source_url": "https://brink.dev/blog/2025/11/19/bitcoin-core-security-audit/",
+   "source_type": "primary",
+   "measures": "first public independent third-party security audit of Bitcoin Core, scoped to the peer-to-peer networking layer",
+   "caveat": "Roughly sixteen years after launch. No critical, high or medium findings WITHIN THAT SCOPE. Not a whole-system verification.",
+   "status": "verified"
+  },
+  "btc.stratumv2.endorsed": {
+   "value": "75% of hashrate joined a working group",
+   "as_of": "2026-05",
+   "source_url": "https://www.coindesk.com/markets/2026/05/11/bitcoin-mining-pools-with-75-of-btc-hashrate-join-open-standard-for-block-construction",
+   "source_type": "aggregator",
+   "measures": "share of hashrate whose pools JOINED the Stratum V2 working group. Joining a working group is not an endorsement and is not a commitment to deploy.",
+   "status": "verified",
+   "caveat": "VERB CORRECTED. We previously wrote 'endorsed', which overstates what joining a working group means and set up a gap that is partly an artifact of our own wording."
+  },
+  "btc.stratumv2.running": {
+   "value": "one publicly attributable Job Declaration block",
+   "as_of": "2026-09-23",
+   "source_url": "https://mempool.space/api/v1/mining/pool/dmnd/blocks",
+   "source_type": "primary",
+   "measures": "blocks with miner-built templates under Stratum V2 Job Declaration that can be attributed publicly: block 955,318 (2026-06-25), mined by DMND, whose all-time block count is 1",
+   "caveat": "TWO FIGURES WITHDRAWN. We published '3-5%' citing a page that does not contain it, then '1.38% (Braiins)', which is Braiins' total block share, not Job Declaration blocks; Braiins says miner-built templates will come 'eventually'. OCEAN's DATUM, a separate way for miners to build templates, mines about 1.9% of blocks, but the share of those built on miner templates is not published. Undisclosed Job Declaration blocks would not show. Non-adoption has documented rational causes: fee-variance absorption by pools, ASIC job-size limits, compliance obligations and accelerator revenue.",
+   "status": "verified",
+   "supersedes": "1.38% of blocks (Braiins), 2026-09-22"
+  },
+  "btc.hosting.concentration": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "cloud provider or AS concentration of Bitcoin nodes",
+   "caveat": "NOT FOUND. The public crawler snapshot was degraded: node records dropped from ~12 fields to 5, removing asn, org, country and lat/lon. Anyone citing a Bitnodes ASN breakdown is citing a capability that no longer exists publicly.",
+   "status": "not_found",
+   "searched_as_of": "2026-09-22"
+  },
+  "btc.as.concentration.modern": {
+   "value": "among the least AS-concentrated of the networks studied; ISP share 0.46, hosting 0.53",
+   "as_of": "2025-07",
+   "source_url": "https://arxiv.org/html/2511.15388v1",
+   "source_type": "primary",
+   "measures": "AS-level concentration across 36 P2P cryptocurrency networks (15 directly crawled). Bitcoin's median node proportions from Table 2: ISP 0.46, hosting 0.53, median 11,309 active nodes, 257,019 discovered IPs. Measurement period late 2024 to July 2025.",
+   "caveat": "READ WITH CARE, THREE WAYS. (1) The specific numeric HHI value for Bitcoin is NOT stated in the retrievable text - Figure 11 is a visualisation and we did not extract a number from it. What is supportable is the ranking (least concentrated, alongside Polkadot, Filecoin, Celestia and Avail) and the Table 2 proportions, not a scalar HHI. (2) The paper states Bitcoin has 'the highest ISP share at 0.45' while Table 2 gives 0.46 - a minor internal inconsistency; we print 0.46 from the table. (3) This DIRECTIONALLY CONTRADICTS the canonical 2017 finding that 13 ISPs host 30% of the network, which described a ~5,600-node network from 2015-16 data. Lead with 2025 and cite 2017 as historical. Note also the paper's median of 11,309 active nodes is well below the 25,763 reachable nodes our own crawl tally used - different methodology, a year apart, and the two should not be mixed.",
+   "status": "verified"
+  },
+  "btc.asic.manufacturer": {
+   "value": "82% market share held by the largest ASIC manufacturer",
+   "as_of": "2024-06-30",
+   "source_url": "https://www.jbs.cam.ac.uk/wp-content/uploads/2025/04/2025-04-cambridge-digital-mining-industry-report.pdf",
+   "source_type": "primary",
+   "measures": "ASIC manufacturer market share among surveyed firms",
+   "caveat": "Arguably a stronger centralization datapoint than geography, and unlike geography it is measured. DO NOT confuse this report's 'US 75.4%' with a network hashrate share - that is a self-selected survey of 49 firms covering 48% of hashrate, and the report itself warns US representation may be overstated. The manufacturer figure comes from the 46 firms that answered that question, weighted by their hashrate, with data as of 2024-06-30 (the report was published 2025-04).",
+   "status": "verified"
+  },
+  "zec.impl.independent": {
+   "value": "2 node implementations, 1 codebase lineage",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/zcash/zcash",
+   "source_type": "primary",
+   "measures": "consensus node implementations: Zebra, and Zakura (a Zebra fork by Valar Group and Project Tachyon, v1.4.0 on 2026-09-10); zcashd's README: 'succeeded by the Zebra and Zakura consensus node implementations'",
+   "caveat": "Zakura shares Zebra's code, so a consensus bug in one is likely in both. zcashd's end-of-support halt fired on 2026-07-18 at block 3,417,100 (a node halt, not a network halt).",
+   "status": "verified"
+  },
+  "zec.orchard.lifetime": {
+   "value": "~4 years",
+   "as_of": "2022-05 to 2026-06-01",
+   "source_url": "https://shieldedlabs.net/the-orchard-counterfeiting-vulnerability/",
+   "source_type": "primary",
+   "measures": "time the counterfeiting vulnerability was live in the Orchard circuit",
+   "caveat": "Because Orchard is private, there is no cryptographic method to determine whether it was exploited.",
+   "status": "verified"
+  },
+  "zec.orchard.response": {
+   "value": "72 hours",
+   "as_of": "2026-06-01",
+   "source_url": "https://shieldedlabs.net/the-orchard-counterfeiting-vulnerability/",
+   "source_type": "primary",
+   "measures": "discovery 2026-05-29 to NU6.2 emergency fix deployed 2026-06-01",
+   "caveat": "NU6.2 fixed the vulnerability. NU6.3 activated Ironwood on 2026-07-28. Two separate upgrades.",
+   "status": "verified"
+  },
+  "zec.ironwood.theorems": {
+   "value": "2,700+",
+   "as_of": "2026-09",
+   "source_url": "https://tachyon.z.cash/blog/ironwood-verification-complete/",
+   "source_type": "primary",
+   "measures": "machine-checked Lean theorems establishing Ironwood balance integrity under stated cryptographic assumptions",
+   "caveat": "COUNTERFACTUAL WITHDRAWN. We previously argued the bug 'would have been caught' had the circuit been verified to Ironwood's standard. That does not hold: the Lean proof models an idealized algebraic function and excludes implementation bugs by the authors' own statement, the production batched verifier is a separate open grant, and the Orchard bug was a halo2_gadgets constraint bug outside that class. The proof class provably does not reach the bug class. What survives: 2,700+ machine-checked theorems establishing Ironwood balance integrity under stated cryptographic assumptions, covering integrity and not privacy. Project Tachyon is a separate proposed future upgrade that led the verification; it is not Ironwood.",
+   "status": "verified"
+  },
+  "zec.nakamoto": {
+   "value": "2",
+   "as_of": "2026-09-22",
+   "source_url": "https://data.miningpoolstats.stream/data/zcash.js",
+   "source_type": "aggregator",
+   "measures": "blocks mined, ~20.8h window: ViaBTC 36.58% + F2Pool 15.65% = 52.23%",
+   "caveat": "By self-reported hashrate the same payload gives 3, not 2. Report the metric, not just the number. Single snapshot of a genuinely unstable quantity - the #2 pool changed between two windows measured minutes apart. Zcash pool distribution is EFFECTIVELY SINGLE-SOURCED: no independent live second source was obtainable.",
+   "status": "disputed"
+  },
+  "xmr.nakamoto": {
+   "value": "2",
+   "as_of": "2026-09-22",
+   "source_url": "https://data.miningpoolstats.stream/data/monero.js",
+   "source_type": "aggregator",
+   "measures": "blocks in last 1000: supportxmr 31.1% + kryptex 20.5% = 51.6%",
+   "caveat": "Both the block-attribution and self-reported-hashrate methods give 2. Poisson 1-sigma on n=311 is about 1.8pp.",
+   "status": "verified"
+  },
+  "xmr.p2pool.share": {
+   "value": "7.67%",
+   "as_of": "2026-09-22",
+   "source_url": "https://p2pool.observer/api/pool_info",
+   "source_type": "primary",
+   "measures": "P2Pool main + mini + nano as share of network hashrate (487.0 MH/s of 6.349 GH/s)",
+   "cross_check": {
+    "value": "7.2% by block count",
+    "source_url": "https://data.miningpoolstats.stream/data/monero.js",
+    "source_type": "aggregator"
+   },
+   "caveat": "Monero's own documentation promotes solo mining and P2Pool as the decentralized options. About 92% of hashrate points at conventional custodial pools.",
+   "status": "verified"
+  },
+  "xmr.impl.independent": {
+   "value": "1",
+   "as_of": "2026-09",
+   "source_url": "https://user.cuprate.org/",
+   "source_type": "primary",
+   "measures": "production consensus implementations: monerod only",
+   "caveat": "Cuprate can independently validate consensus but its own documentation states it cannot currently replace monerod in production.",
+   "status": "verified"
+  },
+  "xmr.audit.daemon": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "published independent audit of the monerod daemon",
+   "caveat": "NOT FOUND. Six community-funded audits exist over eight years and every one is component-scoped to cryptography or proof-of-work: Bulletproofs (Kudelski 2018, QuarksLab 2018), CLSAG (Aumasson and Vennard 2020), RandomX (four audits 2019), Bulletproofs+ (ZenGo X 2021), FCMP++ (Veridise 2025, Trail of Bits 2026). The daemon's P2P layer, RPC surface, wallet and blockchain database have no published independent audit.",
+   "status": "not_found",
+   "searched_as_of": "2026-09-22"
+  },
+  "xmr.audit.clsag": {
+   "value": "Aumasson and Vennard, 2020-07-31",
+   "as_of": "2020-07-31",
+   "source_url": "https://www.getmonero.org/2020/07/31/clsag-audit.html",
+   "source_type": "primary",
+   "measures": "two-phase audit of the CLSAG construction and its deployment implementation",
+   "caveat": "Monero published security-proof revisions on 2024-03-08, roughly four years after the audit signed off clean. A clean audit did not close the matter.",
+   "status": "verified"
+  },
+  "eth.impl.count": {
+   "value": "5 execution + 6 consensus",
+   "as_of": "2026-09",
+   "source_url": "https://clientdiversity.org/",
+   "source_type": "aggregator",
+   "measures": "production client implementations by independent teams",
+   "caveat": "The strongest position in this assessment on implementation diversity.",
+   "status": "verified"
+  },
+  "eth.client.share.disputed": {
+   "value": "DISPUTED",
+   "as_of": "2026-09-22",
+   "source_url": "https://clientdiversity.org/",
+   "source_type": "aggregator",
+   "measures": "consensus client share of the network",
+   "readings": [
+    {
+     "source": "Miga Labs",
+     "Lighthouse": 51.78,
+     "Prysm": 19.79,
+     "Nimbus": 10.92,
+     "Teku": 7.3,
+     "Lodestar": 2.83,
+     "Grandine": 1.68,
+     "Unknown": 2.91
+    },
+    {
+     "source": "Rated.Network",
+     "Teku": 53.86,
+     "Prysm": 21.17,
+     "Lighthouse": 20.6,
+     "Nimbus": 3.12,
+     "Grandine": 0.72,
+     "Lodestar": 0.53
+    }
+   ],
+   "caveat": "Two daily-updated trackers, published side by side on the same page, disagree by more than 30 points on which client holds a majority. Execution-layer figures on the same page are flagged stale by their own maintainers. A supermajority warning is unactionable if the supermajority cannot be located.",
+   "status": "disputed"
+  },
+  "eth.stake.unattributed": {
+   "value": "38.34%",
+   "as_of": "2026-09-21",
+   "source_url": "https://dune.com/hildobby/eth2-staking",
+   "source_type": "aggregator",
+   "measures": "share of staked ETH not attributed to a labelled entity",
+   "caveat": "Larger than Lido's 21.53%. Entity attribution is heuristic deposit-address labelling. This bucket is NOT all solo stakers, and its size means no honest Nakamoto coefficient can be computed. Every confident claim about Ethereum staking concentration is a claim about 62% of the stake.",
+   "status": "verified"
+  },
+  "eth.stake.lido": {
+   "value": "21.53%",
+   "as_of": "2026-09-21",
+   "source_url": "https://dune.com/hildobby/eth2-staking",
+   "source_type": "aggregator",
+   "measures": "Lido share of staked ETH",
+   "caveat": "Lido self-reports 23% as of Feb 2026, a different date and possibly a different denominator. Peak was ~32% in late 2023, so the trend is downward.",
+   "status": "verified"
+  },
+  "eth.stake.threshold33": {
+   "value": "4 named entities",
+   "as_of": "2026-09-21",
+   "source_url": "https://dune.com/hildobby/eth2-staking",
+   "source_type": "derived",
+   "measures": "number of labelled entities whose combined stake clears the 33% finality-blocking threshold (Lido + Binance + ether.fi = 32.93%; + Kraken = 36.71%)",
+   "caveat": "DERIVED by arithmetic on published shares, not a sourced figure. Ethereum's dangerous threshold is 33% (finality prevention), not 51%. No maintained tracker publishes an Ethereum Nakamoto coefficient - both Nakaflow and Chainspect omit Ethereum entirely.",
+   "status": "verified"
+  },
+  "eth.nakamoto": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "Ethereum staking Nakamoto coefficient",
+   "caveat": "NOT FOUND as a maintained published figure. The circulating 'NC = 5' traces to a May 2025 secondary write-up, not a tracker. Do not use it.",
+   "status": "not_found",
+   "searched_as_of": "2026-09-22"
+  },
+  "eth.failure.fusaka": {
+   "value": "248 blocks lost over 42 epochs, 18.5% missed slots, ~382 ETH",
+   "as_of": "2025-12-04",
+   "source_url": "https://prysm.offchainlabs.com/docs/misc/mainnet-postmortems/",
+   "source_type": "primary",
+   "measures": "impact of a Prysm bug at the Fusaka fork; participation floor 75%, finality NOT lost",
+   "caveat": "Prysm's minority share is what bounded the damage. Same mechanism as the May 2023 incident where finality was lost twice in 24 hours. This is the strongest positive evidence for client diversity in the assessment.",
+   "status": "verified"
+  },
+  "sol.teraswitch.offline": {
+   "value": "28.83%",
+   "as_of": "2026-08-12",
+   "source_url": "https://cryptoslate.com/solana-nearly-froze-as-a-single-routing-error-took-29-of-the-network-stake-offline/",
+   "source_type": "aggregator",
+   "measures": "share of staked SOL disconnected for ~33 minutes by a routing error at one vendor's Miami facility",
+   "caveat": "Finality needs more than two-thirds of stake, so it halts once more than one-third (about 33.33%) is offline: a margin of about 4.50 points. '33.34%' in secondary coverage is a rounding. Marinade reported that on the day the vendor's network (AS20326) carried 27.34% of stake, 94% of which went offline together. Solana's proposed Alpenglow consensus would raise the crash tolerance to 40% of stake; it has no scheduled mainnet date.",
+   "status": "verified"
+  },
+  "sol.teraswitch.share": {
+   "value": "~27.1%",
+   "as_of": "2026-07-22",
+   "source_url": "https://cryptoslate.com/solana-nearly-froze-as-a-single-routing-error-took-29-of-the-network-stake-offline/",
+   "source_type": "aggregator",
+   "measures": "share of staked SOL served by a single hosting vendor",
+   "status": "verified"
+  },
+  "sol.firedancer.share": {
+   "value": "15.11% of stake",
+   "as_of": "2026-09-23",
+   "source_url": "https://api.mainnet-beta.solana.com",
+   "source_type": "computed",
+   "measures": "stake running Jump's Firedancer family, from on-chain version data at epoch 1040: Frankendancer 6.83% plus full Firedancer 8.28%",
+   "caveat": "CORRECTED TWICE. We first published '~40%' from a vendor SEO page, then 12.54% from wenfiredancer.com, which counts only Frankendancer versions and misses full Firedancer. Either way the correction weakens our concentration claim about Solana, and we print it.",
+   "status": "verified",
+   "supersedes": "12.54% as of 2026-09-22"
+  },
+  "sol.audit.firedancer": {
+   "value": "no published audit of full Firedancer v1 consensus",
+   "as_of": "2026-09-22",
+   "source_url": "https://github.com/firedancer-io/audits",
+   "source_type": "primary",
+   "measures": "published third-party audits: Atredis (v0.1), Neodyme (v0.1, v0.4), Cure53 (GUI and metrics endpoint)",
+   "caveat": "The headline assurance artifact is a $1M Immunefi audit competition. A bounty competition is not an audit, and an adversarial reader will say so.",
+   "status": "verified"
+  },
+  "tor.dirauth": {
+   "value": "9 total, 5 required",
+   "as_of": "2026-09",
+   "source_url": "https://community.torproject.org/relay/governance/policies-and-proposals/directory-authority/",
+   "source_type": "primary",
+   "measures": "directory authorities forming the trust anchor, and the number required to determine consensus",
+   "caveat": "CONTESTED BY RESEARCH. Luo, Zhang, Neerati and Kate argue a single compromised authority can hand a targeted client an equivocated consensus undetectably, and that DDoSing a majority for five minutes breaks the directory protocol for as little as $53.28/month. Against a targeted user the effective threshold is 1, not 5. Research result, not a recorded live incident.",
+   "contested_by": "https://arxiv.org/abs/2509.10755",
+   "status": "verified"
+  },
+  "tor.exit.top_operator": {
+   "value": "18.82%",
+   "as_of": "2026-09-22",
+   "source_url": "https://onionoo.torproject.org/details?type=relay&running=true",
+   "source_type": "computed",
+   "measures": "largest single operator's share of exit probability, grouped by contact string (665 relays)",
+   "caveat": "That operator also holds 10.36% of consensus weight, over Tor's own 10% ceiling, and 94% of its 20% exit ceiling. It runs its own AS, so operator risk and network risk are the same entity rather than two independent ones. A standing tracker (nusenu/OrNetStats) reported a different leader at 10.18% in March 2026 - either the share more than doubled in six months, or contact-string grouping merges families that tracker splits. Both readings are plausible; the AS-level cut independently gives 18.82%.",
+   "status": "disputed"
+  },
+  "tor.guard.top2_as": {
+   "value": "29.43%",
+   "as_of": "2026-09-22",
+   "source_url": "https://onionoo.torproject.org/details?type=relay&running=true",
+   "source_type": "computed",
+   "measures": "OVH 15.63% + Hetzner 13.80% of guard probability",
+   "caveat": "Two commercial hosters carry nearly 30% of guard selection. Guard position is the one that sees the client's real IP.",
+   "status": "verified"
+  },
+  "tor.impl.arti": {
+   "value": "0 relays",
+   "as_of": "2026-09-22",
+   "source_url": "https://arti.torproject.org/about/",
+   "source_type": "computed",
+   "measures": "Arti relays in the consensus; all 9,446 running relays report a Tor 0.4.9.x platform string",
+   "caveat": "Arti is the Tor Project's own complete rewrite of the C tor codebase - same organisation, same spec, same governance. Its README states 'You can't be a relay.' It is a memory-safety story, not an implementation-diversity story. There is also no standalone published audit of Arti: it appears as one target among eight in a 2025 network-health-tooling engagement, and via its Android tunnel layer in a VPN audit.",
+   "status": "verified"
+  },
+  "tor.audit.core": {
+   "value": null,
+   "as_of": null,
+   "source_url": "https://www.torproject.org/about/reports/",
+   "source_type": "primary",
+   "measures": "standalone independent audit of the C tor daemon as a protocol and cryptographic review",
+   "caveat": "NOT FOUND. Six audits are published 2023-2025, but the closest to the core are Radically Open Security 2023 (scope reached exit relays) and 7ASecurity TOR-02 2025 (C tor as one target among eight). The software carrying 100% of consensus weight has no review scoped to its protocol and cryptographic core. Note also that Cure53's own publication index contains zero Tor reports - they are hosted only by the Tor Project.",
+   "status": "not_found",
+   "searched_as_of": "2026-09-22"
+  },
+  "ln.impl.count": {
+   "value": "1 dominant + 2 alternates + 1 library",
+   "as_of": "2026",
+   "source_url": "https://www.spark.money/tools/bitcoin-lightning-implementation-comparison",
+   "source_type": "aggregator",
+   "measures": "node-capable codebases: LND (dominant), Core Lightning and Eclair (alternates), LDK (a library embedded in wallets, not a routing daemon)",
+   "caveat": "NOT N+1. Drawing these as a redundancy set overstates the position three ways: LDK is not a standalone routing node; the dominant implementation ships its own consensus parser (btcd) rather than relying on Bitcoin Core, which is what desynced it from the chain in Oct 2022; and LND still lacks BOLT12 while the alternates have it, so the plurality is partly nominal. Redundancy requires the alternates to be substitutable, and no neutral test establishes that they are.",
+   "status": "verified"
+  },
+  "ln.impl.share": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "production share by Lightning implementation",
+   "caveat": "NOT FOUND in open publication since 2020: about 87% LND (ICDCN 2021) and 91.3% LND (Mizrahi and Zohar, 2020-09-21). A 2022 informal count and a 2024 paywalled paper exist; we have not verified either figure. The gossip protocol carries no implementation identifier.",
+   "status": "not_found",
+   "searched_as_of": "2026-09-23"
+  },
+  "ln.conformance": {
+   "value": "parser-level neutral fuzzing exists; no neutral protocol-conformance suite",
+   "as_of": "2026-09-22",
+   "source_url": "https://github.com/bitcoinfuzz/bitcoinfuzz",
+   "source_type": "primary",
+   "measures": "cross-implementation testing: bitcoinfuzz fuzzes the message parsers of six Lightning implementations against each other; nothing neutral tests protocol behaviour across implementations",
+   "caveat": "lnprototest, the nearest conformance suite, has been largely dormant since 2025-04 and covers two implementations.",
+   "status": "verified"
+  },
+  "ln.failure.cln2026": {
+   "value": "all operators told to patch or go offline",
+   "as_of": "2026-08-28",
+   "source_url": "https://github.com/ElementsProject/lightning/releases",
+   "source_type": "primary",
+   "measures": "Core Lightning emergency advisory following a ten-day flood of AI-generated CVE reports, several confirmed valid",
+   "caveat": "No confirmed fund loss or exploitation reported. Zero advisories were published to GitHub's security advisory database, so CVE-driven tooling would never have flagged it. This is the assessment's AI-adversary thesis as a dated live event.",
+   "status": "verified"
+  },
+  "ln.failure.lnd2022": {
+   "value": "LND chain desync",
+   "as_of": "2022-10-09",
+   "source_url": "https://bitcoinmagazine.com/technical/learning-from-the-lnd-bug-on-lightning",
+   "source_type": "aggregator",
+   "measures": "LND nodes stopped following the chain after a 998-of-999 multisig transaction; hotfix ~3 hours later",
+   "caveat": "A direct consequence of LND shipping its own consensus parser (btcd) rather than relying on Bitcoin Core. This is implementation monoculture failing in production.",
+   "status": "verified"
+  },
+  "ln.verification": {
+   "value": "one formal proof, of a simplified model",
+   "as_of": "2025-03-10",
+   "source_url": "https://arxiv.org/abs/2503.07200",
+   "source_type": "primary",
+   "measures": "machine-checkable Why3 proof that honest users' funds are safe",
+   "caveat": "Verifies a simplification of Lightning against a custom implementation written by the authors. It does not verify LND, Core Lightning, Eclair or LDK, and does not verify the BOLT documents. Every production funds-at-risk bug of the last two years lives outside this model.",
+   "status": "verified"
+  },
+  "ibc.dragonberry": {
+   "value": "specification unsoundness, not exploited",
+   "as_of": "2022-10-14",
+   "source_url": "https://forum.cosmos.network/t/cosmos-sdk-ibc-vulnerability-retrospective-security-advisories-dragonberry-and-elderflower-october-2022/8735",
+   "source_type": "primary",
+   "measures": "unsoundness in the ICS-23 Merkle proof specification allowing forged membership proofs and therefore forged IBC packets",
+   "caveat": "THE LOAD-BEARING FINDING. Because the flaw was in the SPECIFICATION, every independent implementation was vulnerable simultaneously. Implementation diversity is no defense against specification error. There is no published formal verification of the ICS specification.",
+   "status": "verified"
+  },
+  "ibc.bnb.contrast": {
+   "value": "$586M",
+   "as_of": "2022-10-06",
+   "source_url": "https://rekt.news/leaderboard",
+   "source_type": "aggregator",
+   "measures": "BNB Bridge loss to a forged Merkle proof",
+   "caveat": "Same proof-forgery class, same week. IBC caught it before exploitation; BNB Bridge did not. This is the interoperability argument as a story rather than a statistic.",
+   "status": "verified"
+  },
+  "ibc.deployment.share": {
+   "value": "about 23 router transactions a day",
+   "as_of": "2026-09-23",
+   "source_url": "https://etherscan.io/address/0x3aF134307D5Ee90faa2ba9Cdba14ba66414CF1A7",
+   "source_type": "computed",
+   "measures": "distinct Ethereum transactions emitting IBC Eureka ICS26Router events, 30-day average to 2026-09-23 (an earlier 16.7-hour sample gave about 25)",
+   "caveat": "This is IBC's route to Ethereum only. Inside Cosmos, classic IBC carries about 8,300 transfers a day (see ibc.classic.volume). THIS CORRECTION BROKE AN EARLIER CLAIM AND IS PRINTED: we said trust-minimized interoperability to Ethereum \"exists, works and is deployed\" and the market ignored it. In production Eureka is governed by a Security Council (4-of-7 on-chain, 5-of-7 in its documentation) behind a three-day timelock, with an untimelocked pausing role and permissioned relayers, and its repository ships an 'attestation light client - a multisig alternative'. An earlier version of this caveat said 62.4% of IBC volume rides Axelar; that figure has no source and is withdrawn.",
+   "status": "verified",
+   "supersedes": "~25 router transactions per day on Ethereum (16.7-hour sample, 2026-09-22)"
+  },
+  "ibc.impl.count": {
+   "value": "3 production",
+   "as_of": "2026",
+   "source_url": "https://ibcprotocol.dev/blog/getting-started-with-ibc-understanding-the-interchain-stack-and-the-main-ibc-implementations",
+   "source_type": "primary",
+   "measures": "ibc-go (Go), ibc-rs (Rust, Informal Systems), ibc-solidity (Datachain, pre-beta)",
+   "caveat": "Separate codebases and teams, but all originate from the same Cosmos-funded orbit and share the ICS specification - which is exactly what Dragonberry exploited.",
+   "status": "verified"
+  },
+  "ipfs.maintainers.end": {
+   "value": "2026-09-30",
+   "as_of": "2026-08-24",
+   "source_url": "https://ipshipyard.com/blog/2026-the-end-of-ipfs-at-shipyard/",
+   "source_type": "primary",
+   "measures": "final day of Shipyard's IPFS work after, in Shipyard's words, Protocol Labs informed it that it would not renew its funding. Kubo, Helia, Boxo, Rainbow, Someguy, IPFS Desktop, Companion, the Service Worker Gateway and IPFS Check lose dedicated maintainers. Separately, Shipyard will cease operating ipfs.io, dweb.link, delegated-ipfs.dev and the bootstrap nodes; Protocol Labs, which owns those domains and that infrastructure, will determine their future.",
+   "caveat": "No successor maintainer named as of 2026-09-23 (Kubo's repository reads 'no dedicated maintainer at the moment'). Shipyard's account is one side's account. Legally independent, financially dependent on Protocol Labs.",
+   "expires": "2026-09-30",
+   "status": "verified"
+  },
+  "ipfs.autoconf.stale": {
+   "value": "AutoConfVersion 2025080401",
+   "as_of": "2026-09-22",
+   "source_url": "https://conf.ipfs-mainnet.org/autoconf.json",
+   "source_type": "computed",
+   "measures": "the single URL default-configured Kubo fetches bootstrap peers, delegated routers and DNS resolvers from; last revised roughly 13 months ago",
+   "caveat": "All seven bootstrap entries resolve to one operator surface (bootstrap.libp2p.io plus one hardcoded IP). Zero third-party bootstrappers. One of its two delegated-routing endpoints, delegated-ipfs.dev, is on the 2026-09-30 shutdown list. A concrete checkable centralization fact, not an inference.",
+   "status": "verified"
+  },
+  "ipfs.impl.independent": {
+   "value": "1 genuinely independent full implementation",
+   "as_of": "2026-09-22",
+   "source_url": "https://docs.ipfs.tech/concepts/ipfs-implementations/",
+   "source_type": "primary",
+   "measures": "Nabu (Java, Peergos) is the only actively maintained full implementation outside the ipfs GitHub org. Nine of the listed implementations are maintained by that org itself.",
+   "caveat": "Nabu is spare-time work by a self-funded team, 111 stars, with circuit-relay and AutoRelay not yet implemented. js-ipfs is archived. Boxo is a library, not an implementation. iroh explicitly abandoned IPFS compatibility and is a different protocol, so counting it as IPFS diversity is wrong.",
+   "status": "verified"
+  },
+  "ipfs.failure.dht2023": {
+   "value": "60% of DHT server nodes unresponsive",
+   "as_of": "2023-01",
+   "source_url": "https://blog.ipfs.tech/2023-ipfs-unresponsive-nodes/",
+   "source_type": "primary",
+   "measures": "misconfigured go-libp2p resource manager in Kubo v0.17 caused nodes to drop connections on contact",
+   "caveat": "Reads both ways and both are true. No content became unreachable and GETs slowed only 15-20%, which is a genuine resilience result. It was also one bad default in ONE implementation taking out 60% of the DHT, which is a monoculture result.",
+   "status": "verified"
+  },
+  "fil.dataloss.2021": {
+   "value": "~1,623 TiB with every replica gone at once, of ~1,677 TiB affected",
+   "as_of": "2021-12",
+   "source_url": "https://github.com/filecoin-project/community/discussions/407",
+   "source_type": "primary",
+   "measures": "December 2021: ~1,677 TiB of unique data sat in terminated sectors; ~1,623 TiB (97%) had all replicas lost from the network simultaneously; ~54 TiB kept at least one live replica. The storage providers involved were all in the same data center, which caught fire.",
+   "caveat": "Most of the affected data was Slingshot competition data from public sources, which the report says could be downloaded again and re-stored, so this was a loss of replicas, not an irrecoverable loss of information. The participants \"likely had been cheating the rules\" (the report's hedge) that required 10 independent replicas across 4+ providers. The finding stands: nominal redundancy of 4-10 copies, effective redundancy of one, and nothing in the protocol checked.",
+   "status": "verified"
+  },
+  "fil.audit.proofs.last": {
+   "value": "2021-12-10",
+   "as_of": "2021-12-10",
+   "source_url": "https://github.com/filecoin-project/rust-fil-proofs/blob/master/audits/protocollabs-report-20211210.pdf",
+   "source_type": "primary",
+   "measures": "most recent published external audit of Filecoin's PoRep/PoSt proofs: roughly four pages, two individuals, 5 issues and 4 comments, no severity ratings assigned",
+   "caveat": "The 2023 Synthetic PoRep review was INTERNAL by its own admission and contains a section titled 'Why not an external audit?'. It nonetheless found a HIGH-severity break allowing a provider to pass PoRep and every subsequent WindowPoSt with a replica that was zeros everywhere except the challenged nodes. The 2024-2026 audit spend went to Solidity payment and PDP contracts (itself a proof system), not the PoRep/PoSt proofs.",
+   "status": "verified"
+  },
+  "fil.f3.unaudited": {
+   "value": "activated on mainnet with no published external audit",
+   "as_of": "2025-04-29",
+   "source_url": "https://github.com/advisories/GHSA-g99p-47x7-mq88",
+   "source_type": "primary",
+   "measures": "F3 / GossiPBFT finality module; CVE-2025-59942, CVSS 7.5 HIGH, a poison message crashes a node and an attacker needs no power at all",
+   "caveat": "Affected all three clients: Lotus, Forest and Venus. Surfaced five months after activation, found by bug bounty rather than by audit.",
+   "status": "verified"
+  },
+  "fil.impl.count": {
+   "value": "2",
+   "as_of": "2026-09-22",
+   "source_url": "https://docs.filecoin.io/provide-storage/nodes/implementations.md",
+   "source_type": "primary",
+   "measures": "Filecoin's own documentation states two major node implementations: Lotus and Venus",
+   "caveat": "The widely repeated 'four implementations' traces to a 2020-10-20 blog post. Forest does not support storage, retrieval or mining per those same docs, so it is not a substitutable client. Fuhon has not been pushed since 2025-01-26 and was dropped from the docs with no deprecation notice. Venus is a handed-down Protocol Labs codebase (go-filecoin, renamed 2020), not a clean-room reimplementation.",
+   "status": "verified"
+  },
+  "fil.sp.concentration": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "top-N share of Filecoin storage power, or a Nakamoto coefficient",
+   "caveat": "NOT FOUND. Per-provider rankings are queryable on block explorers but nobody publishes the aggregate. Because block production is proportional to quality-adjusted power, this is a consensus-security number that simply is not reported.",
+   "status": "not_found",
+   "searched_as_of": "2026-09-22"
+  },
+  "fil.qap.misread": {
+   "value": "12,426.5 PiB quality-adjusted vs 1,379.88 PiB raw",
+   "as_of": "2026-09-19",
+   "source_url": "https://filecoindataportal.xyz/numbers",
+   "source_type": "primary",
+   "measures": "quality-adjusted power against raw byte power",
+   "caveat": "QUALITY-ADJUSTED POWER IS NOT STORAGE. It is raw power multiplied by a sector-quality multiplier, up to 10x for verified deals. The roughly 9x gap is the multiplier, not nine times more data. Anyone citing '12.4 EiB on Filecoin' is quoting a consensus-weighting number as if it were bytes.",
+   "status": "verified"
+  },
+  "ar.impl.count": {
+   "value": "1",
+   "as_of": "2026-09-22",
+   "source_url": "https://github.com/ArweaveTeam/arweave/releases",
+   "source_type": "primary",
+   "measures": "one canonical node implementation (Erlang/OTP with C NIFs) maintained by the core team",
+   "caveat": "No second independent consensus-node implementation exists in any language. arweave-rs and similar are SDK or HTTP client libraries that do not mine or validate blocks. ar.io nodes are an indexing and serving gateway layer. Chivesweave is a fork running its own separate chain and contributes nothing to mainnet diversity. With one client, every hard fork is a flag day.",
+   "status": "verified"
+  },
+  "ar.endowment.assumption": {
+   "value": "0.5% annual decay, hard-coded",
+   "as_of": "2026-09-22",
+   "source_url": "https://raw.githubusercontent.com/ArweaveTeam/arweave/master/apps/arweave/include/ar_pricing.hrl",
+   "source_type": "primary",
+   "measures": "PRICE_DECAY_ANNUAL constant in the shipped pricing code",
+   "caveat": "The headline '200 years / 0.5% Kryder rate' framing does NOT appear in the yellowpaper: a full-text search of all 67 pages returns zero occurrences of 'Kryder', '200 years' or '0.5%'. The yellowpaper argues from a 30.57%/yr historical decline; the current docs say approximately 38.5%/yr for the same claimed 50 years. Neither cites the other and the 8-point gap is unexplained. Correction 2026-09-23: the permanence pitch is absent from the yellowpaper but IS stated in the 2023 whitepaper, conditional on the token price (see data.arweave.permanence_pitch).",
+   "status": "verified"
+  },
+  "ar.endowment.failure_mode": {
+   "value": "dilution, not deletion",
+   "as_of": "2026-09-22",
+   "source_url": "https://raw.githubusercontent.com/ArweaveTeam/arweave/master/apps/arweave/include/ar_pricing.hrl",
+   "source_type": "primary",
+   "measures": "RESET_KRYDER_PLUS_LATCH_THRESHOLD and the accompanying comment that total supply does not include additional emission which may start if and when the endowment pool runs empty",
+   "caveat": "The endowment-depletion contingency is already in shipped code: raise fees on new uploads and emit new AR beyond the stated 66M cap. The stated supply cap is therefore conditional, and the condition is written into the client. Separately, the protocol cut its own assumed replication from 45 to 20 at fork 2.6, directly reducing what users pay for perpetual storage, with no discussion found outside the source file.",
+   "status": "verified"
+  },
+  "ar.replicas.count": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "number of full replicas of the Arweave weave in existence",
+   "caveat": "NOT FOUND, and it is the largest evidence gap in the permanence claim. The protocol incentivizes full replicas but no telemetry reports how many exist, and arweave.net/metrics no longer responds. No published retrievability audit of the weave exists either. The permanence claim is UNMEASURED, not disproven.",
+   "status": "not_found",
+   "searched_as_of": "2026-09-23"
+  },
+  "ar.falsified.halt": {
+   "value": "FALSIFIED",
+   "as_of": "2026-02-06",
+   "source_url": "https://arweave.net/block/height/1851687",
+   "source_type": "computed",
+   "measures": "the widely reported 24-hour Arweave block-production halt",
+   "caveat": "Blocks 1,851,686 and 1,851,687 are 4 minutes 24 seconds apart; 1,851,688 follows 51 seconds later. Production was continuous. The cause was an explorer serving a stale local cache count. Run by Binance Square, Phemex, CryptoRank, BitcoinWorld, WEEX and MEXC, most of which also date it to the wrong year. Four calls to the chain falsify it.",
+   "status": "verified"
+  },
+  "nostr.nip41.status": {
+   "value": "never merged",
+   "as_of": "2026-09-22",
+   "source_url": "https://raw.githubusercontent.com/nostr-protocol/nips/master/README.md",
+   "source_type": "primary",
+   "measures": "status of the key-rotation NIP",
+   "caveat": "NIP-41 is not a draft, it is not in the NIPs list at all. The README goes 40 to 42 and nips.nostr.com/41 returns 404 while its neighbours resolve. NIP-26 is struck through as 'unrecommended: adds unnecessary burden for little gain' and NIP-06 as 'unrecommended: prefer a single nsec'. The successor proposal, PR 1452, has been open since 2024-08-28 with maintainers still disagreeing on whether Nostr should solve this at all. NIP-46 and NIP-49 are adopted but are key-CUSTODY tools, not key-ROTATION tools.",
+   "status": "verified"
+  },
+  "nostr.keys.exposed": {
+   "value": "1,314 organic leaks; 38 live at-risk accounts",
+   "as_of": "2026-03-17",
+   "source_url": "https://bigbrotr.com/blog/exposed-nsec-analysis",
+   "source_type": "primary",
+   "measures": "private keys found in plaintext on relays, after filtering, from a 48-hour scan of 41M events across 1,085 relays",
+   "caveat": "The circulating headline of 16,599 exposed keys is 92% a single bot's test harness. The honest organic figure is 1,314, and the operationally meaningful one is 38 active uncompromised accounts. Profile-field paste errors account for 74% of follower exposure.",
+   "status": "verified"
+  },
+  "nostr.relay.concentration": {
+   "value": "top relay present on 73% of posts",
+   "as_of": "2023-12",
+   "source_url": "https://arxiv.org/html/2402.05709v2",
+   "source_type": "primary",
+   "measures": "share of posts that touched the largest relay, over a 17.8M-post dataset",
+   "caveat": "THIS IS A REACH STATISTIC WEARING A CONCENTRATION STATISTIC'S CLOTHES. Posts are replicated a mean of 34.6 times across relays, so 73% presence does not mean 73% custody, and the same paper concludes Nostr is LESS centralized than the Fediverse. Whichever reading is used, say which. The dataset is from 2023 and no replication has been published since.",
+   "status": "disputed"
+  },
+  "nostr.relay.count": {
+   "value": "DISPUTED: 470 / ~950 / 1,341",
+   "as_of": "2026",
+   "source_url": "https://github.com/rust-nostr/nostr-stats",
+   "source_type": "aggregator",
+   "measures": "number of Nostr relays",
+   "caveat": "Three sources give three answers and none states its definition or its date. They probably measure online-now versus public-listed versus reachable-on-scan. Publish the spread, not a point estimate.",
+   "status": "disputed"
+  },
+  "nostr.audit.relay": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "published third-party security audit of any major Nostr relay implementation",
+   "caveat": "NOT FOUND. strfry carries roughly 23% of relays and has no located audit. NIP-44 v2 was audited by Cure53 in December 2023, but that covers one optional encryption NIP, not relay software. No machine-checked formal model of any Nostr component exists.",
+   "status": "not_found",
+   "searched_as_of": "2026-09-22"
+  },
+  "nostr.attacks.published": {
+   "value": "first in-depth security analysis, 2025",
+   "as_of": "2025-08-13",
+   "source_url": "https://eprint.iacr.org/2025/1459",
+   "source_type": "primary",
+   "measures": "demonstrated forgery on encrypted DMs by a malicious user or malicious relay, plus a confidentiality break exploiting link-preview combined with CBC malleability, verified with proof-of-concept implementations",
+   "caveat": "Root causes split between the specification and client implementations, some of which in combination elevate forgery to a confidentiality violation. The most damaging verified finding on the identity layer and it is barely cited anywhere.",
+   "status": "verified"
+  },
+  "ln.spof": {
+   "value": "dominant implementation, share unmeasured since 2021",
+   "as_of": "2026-09-22",
+   "source_url": "https://schmiste.github.io/icdcn21ln.pdf",
+   "source_type": "primary",
+   "measures": "single point of failure for the payments layer: one implementation carries most routing nodes, and its share cannot currently be measured",
+   "caveat": "The gossip protocol carries no implementation identifier, so share can only be inferred by fingerprinting default parameters. The last openly published figures: about 87% LND (ICDCN 2021, data 2018-2020) and 91.3% LND (Mizrahi and Zohar, a 2020-09-21 snapshot). A 2024 peer-reviewed measurement exists but its figure is paywalled and we have not read it.",
+   "status": "verified"
+  },
+  "ln.failover.status": {
+   "value": "NOT FOUND",
+   "as_of": "2026-09-22",
+   "source_url": "https://github.com/rustyrussell/lnprototest",
+   "source_type": "primary",
+   "measures": "whether the payments layer's failover has been tested: can traffic move to an alternate implementation if the dominant one fails",
+   "caveat": "Three alternate codebases exist, but the nearest thing to a conformance suite is written and maintained by one implementation's lead and its backend runner drives only that implementation. There is no neutral cross-implementation BOLT conformance harness, so nothing establishes that the alternates would agree under load. Failover is asserted by the existence of the alternates, not demonstrated.",
+   "status": "verified"
+  },
+  "ln.blast_radius": {
+   "value": "three emergency events in four years",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/lightningnetwork/lnd/releases/tag/v0.15.4-beta",
+   "source_type": "primary",
+   "measures": "implementation-wide emergency releases: LND 2022-10-10 and 2022-11-01 (nodes stopped following the chain after unusual transactions), Core Lightning v26.06.7 (2026-08-28)",
+   "caveat": "None was a flaw in the payment-channel construction; each was an implementation failure whose blast radius was every node running that implementation. The earlier date of 2026-08-23 for the Core Lightning event had no source; its emergency release is dated 2026-08-28.",
+   "status": "verified"
+  },
+  "rollup.stage.distribution": {
+   "value": "22 active rollups: 12 at Stage 0, 6 at Stage 1, 4 at Stage 2",
+   "as_of": "2026-09-23",
+   "source_url": "https://l2beat.com/api/scaling/summary",
+   "source_type": "computed",
+   "measures": "count of active layer-2 projects L2Beat categorises as Optimistic or ZK rollups, by maturity stage",
+   "caveat": "Published per project by L2Beat and aggregated here by us. Previously listed as a gap; it was a gap in our research, not in the world.",
+   "status": "verified"
+  },
+  "rollup.sequencer.centralization": {
+   "value": "1 of 22 rollups lists a decentralized sequencer set",
+   "as_of": "2026-09-23",
+   "source_url": "https://l2beat.com/api/scaling/summary",
+   "source_type": "computed",
+   "measures": "L2Beat's 'Sequencer Failure' risk field across 22 active rollups: 13 self-sequence, 4 enqueue via L1, 2 force via L1, 1 log via L1, 1 no mechanism, 1 decentralized sequencer set",
+   "caveat": "The field classifies the recourse when the sequencer fails, not the sequencer itself. All but one describe a fallback for a failed operator, which implies an operator. Previously listed as a gap in error.",
+   "status": "verified"
+  },
+  "rollup.upgrade_keys": {
+   "value": "Exit window \"None\" on 18 of 22 rollups, including all 9 largest",
+   "as_of": "2026-09-23",
+   "source_url": "https://l2beat.com/api/scaling/summary",
+   "source_type": "computed",
+   "measures": "L2Beat's 'Exit Window' risk field: whether users get time to exit before an upgrade takes effect. 18 None, 3 unbounded (no upgrade path), 1 not applicable.",
+   "caveat": "\"None\" means at least one upgrade path (usually a Security Council) can act with no exit window for users. Previously listed as a gap in error.",
+   "status": "verified"
+  },
+  "eth.l1.activity_share": {
+   "value": "~1.0% of counted user operations",
+   "as_of": "2026-09-22",
+   "source_url": "https://l2beat.com/api/scaling/activity/ethereum",
+   "source_type": "computed",
+   "measures": "Ethereum L1 user operations against the L2Beat scaling aggregate (https://l2beat.com/api/scaling/activity), trailing 7 days: 13.87M vs 1,322.5M",
+   "caveat": "A snapshot of where activity sits, not a measured migration, and activity is not value. The aggregate spans every project L2Beat tracks, including non-rollups and layer 3s; whether it includes Ethereum itself is undocumented, so the share is 1.04-1.05% either way.",
+   "status": "verified"
+  },
+  "exec.verdict": {
+   "value": "rollups and Solana have documented concentration points; Ethereum L1's is unresolved",
+   "as_of": "2026-09-22",
+   "source_url": "https://l2beat.com/scaling/summary",
+   "source_type": "derived",
+   "measures": "the execution slot's verdict, derived from the sourced claims: rollups (upgrade and sequencing control), Solana (hosting concentration) and Ethereum L1 (genuine client diversity whose distribution, and whose staking concentration, cannot be measured)",
+   "caveat": "DERIVED, and stated as a choice rather than a winner. This is the only layer in the assessment with three genuine occupants; every other layer has essentially one thing in the slot. The reader is choosing which failure mode they can live with, not watching an argument. The critical distinction is SAFETY versus LIVENESS: whether an operator can take or freeze funds, or merely delay them.",
+   "status": "verified",
+   "supersedes": "three occupants, three different single points of failure, none with zero (2026-09-22)"
+  },
+  "exec.eth.spof": {
+   "value": "redundancy real, distribution unverifiable",
+   "as_of": "2026-09-22",
+   "source_url": "https://clientdiversity.org/",
+   "source_type": "aggregator",
+   "measures": "Ethereum L1's single point of failure: five independently written execution clients and six consensus clients exist, but no reliable measurement of their distribution does",
+   "caveat": "BE FAIR HERE. The redundancy is genuine - the clients are independently written by different teams and they run. What cannot be verified is the DISTRIBUTION: two daily trackers disagree by more than 30 points on which client holds a majority, no maintained Nakamoto coefficient exists, and 38% of stake is unattributed. That is a measurement-industry failure, not an Ethereum protocol failure, and a critic will correctly say so. The honest statement is that the SPOF is UNKNOWN, not that it is absent and not that it is severe. No operator sits between a user and the chain.",
+   "status": "verified"
+  },
+  "exec.rollup.spof.safety": {
+   "value": "operator is a SAFETY SPOF where force-inclusion is absent or disabled",
+   "as_of": "2026-09-22",
+   "source_url": "https://l2beat.com/scaling/projects/polygonzkevm",
+   "source_type": "aggregator",
+   "measures": "rollups on which a user cannot bypass a censoring or failed sequencer: Metis has no force-include path at all; Polygon zkEVM's exists in the code and is DISABLED; Linea halted its sequencer and censored addresses by its own admission in June 2024",
+   "caveat": "Demonstrated, not theoretical. Polygon zkEVM: a 6-of-8 multisig invoked Emergency State in March 2024, bypassing the timelock, and withdrawals were frozen roughly 23 hours while the chain ran. Its sequencer was then permanently sunset in July 2026; EOA assets are claimable until 2027-12-31 but assets held in smart contracts are NOT recoverable through that interface. This is the strongest realized-harm evidence in the execution layer and it is a fund-freeze, not an outage.",
+   "status": "verified"
+  },
+  "exec.rollup.spof.liveness": {
+   "value": "operator is a LIVENESS SPOF, bounded ~12h, where force-inclusion works",
+   "as_of": "2026-09-22",
+   "source_url": "https://docs.optimism.io/stack/rollup/outages",
+   "source_type": "primary",
+   "measures": "OP Stack chains (Base, OP Mainnet, Blast, Manta, Mantle): a user can submit through the L1 portal and the chain automatically reorganises to include the transaction once the sequencer window expires",
+   "caveat": "THIS CUTS AGAINST THE ARGUMENT AND MUST BE STATED PLAINLY. In OP Stack's own words, a core security goal is that the sequencer should not be able to prevent users from submitting transactions, and reorg is the designed censorship-resistance mechanism rather than a malfunction. Where this works, the operator can delay a user but cannot permanently censor them or take funds. Collapsing this into 'the SPOF is a company' is inaccurate. Note also that Arbitrum's sequencer shows 100.0% monthly uptime from January 2024 through September 2026, so realized failure rates are low.",
+   "status": "verified"
+  },
+  "exec.rollup.upgrade_keys": {
+   "value": "all 9 largest rollups have an upgrade path with no exit window",
+   "as_of": "2026-09-23",
+   "source_url": "https://l2beat.com/api/scaling/summary",
+   "source_type": "computed",
+   "measures": "L2Beat 'Exit Window: None' on each of the nine largest active rollups by value secured (Base, Arbitrum One, OP Mainnet, Mantle, Lighter, Starknet, Ink, Linea, ZKsync Era)",
+   "caveat": "CAPABILITY, NOT INCIDENT. With one documented exception (Polygon zkEVM 2024) these powers have not been misused. The finding is that the recourse does not exist if they are, not that they have been. Scroll moved AWAY from decentralisation in June 2026 by handing control to a 3-of-4 team multisig, which is the direction of travel worth noting.",
+   "status": "verified",
+   "supersedes": "8 of the 9 largest have a zero-delay upgrade path, as of 2026-09-22"
+  },
+  "exec.solana.spof": {
+   "value": "physical: hosting concentration",
+   "as_of": "2026-08-12",
+   "source_url": "https://cryptoslate.com/solana-nearly-froze-as-a-single-routing-error-took-29-of-the-network-stake-offline/",
+   "source_type": "aggregator",
+   "measures": "Solana's single point of failure: one hosting vendor served ~27.1% of staked SOL and a routing error there took 28.83% offline for ~33 minutes, about 4.50 points short of the one-third finality-halt threshold",
+   "caveat": "BE FAIR HERE TOO. No operator sits between a user and the chain; there is no sequencer and no upgrade multisig in the transaction path, which is a real architectural advantage over rollups. Hosting concentration is operational and can be fixed by validators relocating, with no protocol change. Solana has two independent consensus codebases (Agave, and Jump's Firedancer family at 15.11% of stake). The vendor's post-mortem describes a routing-policy error that took 13 of its 31 sites down for 33 minutes. Whether finality actually stalled is disputed between monitors. The incident was survived by margin rather than by design.",
+   "status": "verified"
+  },
+  "adoption.l2.stage2": {
+   "value": "$725K at Stage 2 vs $35.29B at Stage 0-1",
+   "as_of": "2026-09-23",
+   "source_url": "https://l2beat.com/api/scaling/summary",
+   "source_type": "computed",
+   "measures": "value secured (L2Beat TVS) by active layer-2 projects categorised as rollups: Stage 2 (no privileged override outside provable on-chain bugs) against Stage 0 ($4.11B, 12 rollups) plus Stage 1 ($31.18B, 6 rollups). Validiums, \"Other\" categories and layer 3s excluded.",
+   "caveat": "A ratio of roughly 1 to 48,700. Stage 2 is essentially one project: Facet holds $722K of the $725K; Aztec, Cartesi and Ethscriptions together hold under $3K. Aztec reached Stage 2 on 2026-07-14 and disclosed a critical proving-system bug on 2026-08-07; Scroll fell to Stage 0 on 2026-06-01. No major rollup is at Stage 2. In Stage 1 the privileged override belongs to a Security Council with a high threshold and outside members, not to the operator. The rating is free and public; whether depositors read it is unmeasured, so the ratio shows where value sits, not why.",
+   "status": "verified",
+   "supersedes": "$728K vs $35.8B as of 2026-09-22"
+  },
+  "adoption.wbtc.experiment": {
+   "value": "cbBTC $8.64B, WBTC $9.96B, tBTC $370.6M",
+   "as_of": "2026-09-23",
+   "source_url": "https://api.llama.fi/tvl/wbtc",
+   "source_type": "aggregator",
+   "measures": "TVL STOCKS, not a measured migration. During the August 2024 WBTC custody controversy a trust-minimized alternative (tBTC) was already deployed, audited and liquid. These are the three balances today.",
+   "caveat": "DO NOT REPORT AS A FLOW. These are balances. Timeline verified 2026-09-23: BitGo announced on 2024-08-09 a move to multi-jurisdictional custody through \"a joint-venture with BiT Global\" and \"a strategic partnership between BitGo, Justin Sun, and the Tron ecosystem\" (bitgo.com); redemptions ran well ahead of mints and MakerDAO/Sky opened a collateral discussion; Coinbase teased cbBTC on 2024-08-14 and launched it on 2024-09-12. tBTC was already live. The data cannot separate 'users chose custody' from 'users chose the listed, liquid, integrated option'.",
+   "status": "disputed",
+   "supersedes": "cbBTC $8.64B, WBTC $10.0B, tBTC $372.7M (2026-09-22)"
+  },
+  "adoption.bridge.losses.fell": {
+   "value": "-96% by 2024-25, then $744.7M in 2026 to date",
+   "as_of": "2026-09-22",
+   "source_url": "https://api.llama.fi/hacks",
+   "source_type": "computed",
+   "measures": "DefiLlama hacks records flagged bridgeHack=true: $1,905.6M across 13 incidents in 2022 against $75.1M across 18 in 2024-2025 combined (a 96% fall, comparing two years to one), then $744.7M across 43 incidents in 2026 through 2026-09-22",
+   "caveat": "THE 2026 DATA REVERSES THE STORY WE HAD. Losses fell through 2023-2025 with conventional hardening and no light-client verification; in 2026 they returned to 40.5% of all tracked hack losses. What caused either movement is not isolated: hardening, less value held in bridges and attackers moving elsewhere all fit the fall. The bridgeHack flag is applied by DefiLlama by hand and includes some key compromises; 'all losses' means DefiLlama-tracked hacks, not every loss in crypto. Supersedes a caveat that cited 'no recorded break in 1,281 catalogued incidents', a denominator already withdrawn.",
+   "status": "verified",
+   "supersedes": "96% reduction, committee models intact (as of 2025-12-31)"
+  },
+  "adoption.lightning.decline": {
+   "value": "capacity -29.8%, channels -35.6% from 2024 peaks",
+   "as_of": "2026-08-20",
+   "source_url": "https://mempool.space/api/v1/lightning/statistics/latest",
+   "source_type": "computed",
+   "measures": "5,346.1 BTC capacity (2024-07-22) to 3,750.2 BTC; 51,430 channels (2024-04-28) to 33,101; 16,420 nodes",
+   "caveat": "Give both denominations honestly - in USD terms capacity is roughly flat and partisans will spin that. The BTC-denominated decline is the real signal for a Bitcoin-denominated payments rail. River's own 2023 report puts best-case annual routed volume at $936M and states plainly that 'the average user today does not care much about non-custodial usage'; its researchers had to use a custodial wallet as the study's hub node. Custodial versus non-custodial new Android installs ran about 84 to 1.",
+   "status": "verified"
+  },
+  "prescription.signal.fv": {
+   "value": "formal verification re-run in CI on every push",
+   "as_of": "2025-10-02",
+   "source_url": "https://signal.org/blog/spqr/",
+   "source_type": "primary",
+   "measures": "Signal's Sparse Post Quantum Ratchet: Rust translated to F* via hax, handwritten ProVerif models in-repo, verification re-run in continuous integration on every developer push",
+   "caveat": "FATAL TO OUR OWN PRESCRIPTION IF OMITTED. We prescribe formal verification and covered no protocol that has it wired into CI. Signal does, at an estimated 70 million users (a third-party figure; see prescription.signal.users), with a peer-reviewed lineage: Cohn-Gordon et al. (IEEE EuroS&P 2017) on X3DH and the Double Ratchet, and Bhargavan, Jacomme, Kiefer and Schmidt (USENIX Security 2024) verifying PQXDH in ProVerif and CryptoVerif, which found spec-level flaws and proved a new KEM binding property for Kyber. The obvious defense - Signal is centralized, therefore out of scope - makes it worse, because Moxie's centralized-but-private argument is this assessment's strongest adversary and a piece that never names its strongest opponent is advocacy.",
+   "status": "verified"
+  },
+  "prescription.gpg.precedent": {
+   "value": "the canonical built-but-not-run system, and its author says why",
+   "as_of": "2015-02-24",
+   "source_url": "https://moxie.org/2015/02/24/gpg-and-me.html",
+   "source_type": "primary",
+   "measures": "Moxie Marlinspike on GPG: 'I think of GPG as a glorious experiment that has run its course.' And in 'The ecosystem is moving' (2016): 'once you federate your protocol, it becomes very difficult to make changes.'",
+   "caveat": "THE PRECEDENT THAT MUST BE ANSWERED. GPG is trust-minimized, was built, was free, and is not run. The person who ran that experiment concluded the reason is that it is bad software for humans, not that the market was short-sighted. Any piece prescribing decentralized protocols has to explain why this domain escapes the constraint that killed PGP and XMPP. Relatedly, our thesis as drafted is a third-degree path-dependence claim in the Liebowitz and Margolis sense, and they show the canonical examples of that claim collapse on contact with primary sources. The burden of proof is on us.",
+   "status": "verified"
+  },
+  "gap.oracles": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "a trust-minimized way to import OFF-chain facts (prices, events, the outside world) into consensus",
+   "caveat": "NOT FOUND after a survey of Chainlink, Pyth (3-of-5 routers since 2026-08-26), UMA, Chronicle, DLC oracles, Reclaim and TLSNotary. Trust-minimized reads of ON-chain facts do exist (Uniswap TWAP, tBTC's LightRelay). Applications whose correctness depends on outside facts need an oracle or adjudication mechanism, and each adds assumptions about sources, aggregation, disputes and governance.",
+   "status": "not_found",
+   "searched_as_of": "2026-09-23"
+  },
+  "exec.rollup.base.dropped": {
+   "value": "2.1 million transactions dropped; ~20% of submissions landed",
+   "as_of": "2026-02-03",
+   "source_url": "https://base-l2.statuspage.io/api/v2/incidents.json",
+   "source_type": "primary",
+   "measures": "Base incident zfvvgt46j9d8, 2026-01-22 to 2026-02-01: a configuration change to transaction propagation between mempool nodes and the block builder meant roughly 20% of submitted transactions landed on-chain, with an acute window of 2h26m. Rolled back.",
+   "caveat": "THE MOST UNDER-RATED INCIDENT IN THE ROLLUP DATASET. The chain produced blocks throughout, so no outage was declared and Base classified the impact as MINOR. A chain that is up while silently discarding roughly 80% of submitted traffic is a failure mode no uptime metric in existence captures. Note the honest limit: the incident record for this chain covers 2025-05-21 onward only, so no claim of the form 'N outages since launch' is supportable.",
+   "status": "verified"
+  },
+  "btc.custody.split": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "the share of bitcoin exposure held in self-custody versus held through exchanges, funds, ETFs and other intermediaries",
+   "caveat": "NOT FOUND, and it is the measurement that would settle our own argument. This review scored settlement on protocol properties and scored payments and identity on user behaviour. Applying the behavioural test to settlement requires this number and it is not published: exchange and fund holdings are individually disclosed, self-custody is by construction unobservable, and no credible aggregate split exists. WE THEREFORE CANNOT CLAIM SETTLEMENT PASSES THE BEHAVIOURAL TEST, AND WE CANNOT CLAIM IT FAILS IT. An earlier revision of this page asserted that most exposure is intermediated. That assertion was unsourced and has been withdrawn.",
+   "status": "not_found",
+   "searched_as_of": "2026-09-22"
+  },
+  "exec.rollup.arbitrum.uptime": {
+   "value": "100.0% monthly sequencer uptime, Jan 2024 - Sep 2026",
+   "as_of": "2026-09-22",
+   "source_url": "https://status.arbitrum.io/default/history/1",
+   "source_type": "primary",
+   "measures": "per-component monthly uptime published by the operator, walked across twelve quarterly history pages. December 2023 (99.44%) is the only sub-100% month in the published record.",
+   "caveat": "STATE THE WINDOW HONESTLY. The record begins one month after that chain's best-known sequencer incident, so a window starting January 2024 excludes it. Arbitrum is also the only chain in this set publishing per-component monthly uptime at all, which means it is the only one whose record CAN be checked - an availability bias that favours it in any comparison. Distinguish from 'largest rollup by value', which is Base.",
+   "status": "verified"
+  },
+  "theory.path_dependence": {
+   "value": "\"highly restrictive and implausible assumptions\"",
+   "as_of": "1995",
+   "source_url": "https://ideas.repec.org/a/oup/jleorg/v11y1995i1p205-26.html",
+   "source_type": "primary",
+   "measures": "Liebowitz and Margolis, Journal of Law, Economics and Organization 11(1):205-226, on the form of path dependence that implies a remediable persistent error. Quoted phrase is from the published abstract.",
+   "caveat": "Verified 2026-09-23 against the RePEc record of the article and working paper. The 1990 companion paper, 'The Fable of the Keys' (Journal of Law and Economics 33(1):1-25, doi 10.1086/467198), reports finding 'virtually no evidence' that the Dvorak layout beats QWERTY after returning to the original typing studies. That finding is contested by Paul David's side of the debate and should be presented as theirs, not as settled.",
+   "status": "verified"
+  },
+  "gap.crosschain_volume_by_trust": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "share of cross-chain volume secured by light-client or proof-based verification versus committee, multisig or custodial verification",
+   "caveat": "NOT FOUND. Every published classification of bridges by trust model is qualitative or a headcount; nobody weights volume by verification model. The qualitative statement survives: the three highest-volume systems are a permissioned guardian set, a configurable verifier network, and an optimistic oracle, none of which is a light client.",
+   "status": "not_found",
+   "searched_as_of": "2026-09-22"
+  },
+  "bridge.losses.2022": {
+   "value": "$1,905.6M",
+   "as_of": "2022-12-31",
+   "source_url": "https://api.llama.fi/hacks",
+   "source_type": "computed",
+   "measures": "13 DefiLlama hack records flagged bridgeHack=true in 2022; 52.4% of all tracked hack losses that year",
+   "status": "verified"
+  },
+  "bridge.losses.2023": {
+   "value": "$300.7M",
+   "as_of": "2023-12-31",
+   "source_url": "https://api.llama.fi/hacks",
+   "source_type": "computed",
+   "measures": "7 DefiLlama hack records flagged bridgeHack=true in 2023; 18.5% of all tracked hack losses that year",
+   "status": "verified"
+  },
+  "bridge.losses.2024": {
+   "value": "$36.8M",
+   "as_of": "2024-12-31",
+   "source_url": "https://api.llama.fi/hacks",
+   "source_type": "computed",
+   "measures": "7 DefiLlama hack records flagged bridgeHack=true in 2024; 2.2% of all tracked hack losses that year",
+   "status": "verified"
+  },
+  "bridge.losses.2025": {
+   "value": "$38.3M",
+   "as_of": "2025-12-31",
+   "source_url": "https://api.llama.fi/hacks",
+   "source_type": "computed",
+   "measures": "11 DefiLlama hack records flagged bridgeHack=true in 2025; 1.4% of all tracked hack losses that year",
+   "status": "verified"
+  },
+  "bridge.losses.2026": {
+   "value": "$744.7M",
+   "as_of": "2026-09-22",
+   "source_url": "https://api.llama.fi/hacks",
+   "source_type": "computed",
+   "measures": "43 DefiLlama hack records flagged bridgeHack=true in 2026 through 2026-09-22; 40.5% of all tracked hack losses that year",
+   "caveat": "Year to date.",
+   "status": "verified"
+  },
+  "sol.finality.threshold": {
+   "value": "more than one-third of stake",
+   "as_of": "2026-08-12",
+   "source_url": "https://solanafloor.com/news/solana-hit-86-of-its-halt-threshold",
+   "source_type": "aggregator",
+   "measures": "offline stake at which Solana finality halts (finality requires a supermajority of more than two-thirds)",
+   "caveat": "28.83% offline was about 86% of the way to that threshold.",
+   "status": "verified"
+  },
+  "plane.transport.shutdowns_2025": {
+   "value": "at least 313 shutdowns in 52 countries",
+   "as_of": "2025-12-31",
+   "source_url": "https://www.accessnow.org/wp-content/uploads/2026/03/KeepItOn-Internet-Shutdowns-2025-Annual-Report.pdf",
+   "source_type": "primary",
+   "measures": "intentional disruptions of internet or electronic communications documented by Access Now in calendar 2025; the parties imposing them include governments, courts, militaries and police",
+   "caveat": "A record in the dataset (304 in 2024, 289 in 2023). Not only government-imposed. The report notes counts may change retroactively.",
+   "status": "verified"
+  },
+  "plane.transport.bgp_isolation": {
+   "value": "fewer than 100 hijacked prefixes could isolate up to 47-50% of mining power",
+   "as_of": "2016-03",
+   "source_url": "https://arxiv.org/abs/1605.07524",
+   "source_type": "primary",
+   "measures": "Apostolaki, Zohar and Vanbever, Hijacking Bitcoin (IEEE S&P 2017): mining power isolatable by BGP hijack in a topology inferred from October 2015 to March 2016 data",
+   "caveat": "The paper states 50% in its abstract and \"up to 47%\" (39 prefixes) in its body. The topology is a decade old; the durable finding is that consensus inherits the routing layer's attack surface.",
+   "status": "verified"
+  },
+  "plane.transport.tor_correlation": {
+   "value": "Tor does not defend against an observer who can see both the user and either the destination or the exit",
+   "as_of": "2026-09-23",
+   "source_url": "https://support.torproject.org/about/attacks-on-onion-routing/",
+   "source_type": "primary",
+   "measures": "a stated exclusion in Tor's own threat model: timing correlation by an observer on both sides",
+   "status": "verified"
+  },
+  "plane.transport.nym_threat_model": {
+   "value": "designed against a global passive adversary",
+   "as_of": "2026-09-23",
+   "source_url": "https://nym.com/docs/network/threat-model/actors",
+   "source_type": "primary",
+   "measures": "the adversary Nym's mixnet is designed against (its \"L3G\" global network observer)",
+   "caveat": "Nym's own documentation says the mixnet's timing protection addresses that actor and no other.",
+   "status": "verified"
+  },
+  "plane.transport.nym_active_set": {
+   "value": "60 mixnodes in the active set",
+   "as_of": "2026-09-23",
+   "source_url": "https://validator.nymtech.net/api/v1/unstable/nym-nodes/skimmed",
+   "source_type": "computed",
+   "measures": "nodes actively mixing traffic (20 per layer), with 80 entry and 100 exit gateways, from the live network API; 1,119 nodes bonded",
+   "caveat": "Latency and bandwidth costs are user-selectable settings in NymVPN (default about 15 ms added per hop and about 1 Mbps of cover traffic), not network constants.",
+   "status": "verified"
+  },
+  "plane.transport.reticulum": {
+   "value": "stable wire format, not externally audited, one maintainer",
+   "as_of": "2026-08-29",
+   "source_url": "https://github.com/markqvist/Reticulum",
+   "source_type": "primary",
+   "measures": "Reticulum v1.5.2 project self-description: a networking stack that runs over radio, serial and other links as well as the internet",
+   "caveat": "The reference implementation is the specification.",
+   "status": "verified"
+  },
+  "plane.transport.blockstream_satellite": {
+   "value": "vendor states a 24/7 broadcast of the Bitcoin chain on three satellites",
+   "as_of": "2026-05-26",
+   "source_url": "https://github.com/Blockstream/satellite",
+   "source_type": "primary",
+   "measures": "vendor statement and last repository activity",
+   "caveat": "Not independently confirmed live. Receive path for the chain, plus a paid message-upload API; one operator; the receiver software is a Bitcoin Core fork last released 2023-06-13.",
+   "status": "disputed"
+  },
+  "plane.custody.seedsigner": {
+   "value": "stateless, air-gapped, multisig-capable, open source",
+   "as_of": "2026-07-08",
+   "source_url": "https://github.com/SeedSigner/seedsigner",
+   "source_type": "primary",
+   "measures": "SeedSigner v0.8.7 project description: a Bitcoin signing device that holds no secrets between sessions",
+   "caveat": "Bitcoin only. Stateless means the seed is re-entered every session, which moves the risk to how the seed is stored.",
+   "status": "verified"
+  },
+  "plane.custody.fedimint_federations": {
+   "value": "17 federations listed",
+   "as_of": "2026-09-23",
+   "source_url": "https://observer.fedimint.org/api/federations",
+   "source_type": "derived",
+   "measures": "Fedimint federations registered with the public observer; a federation of n guardians tolerates (n-1)/3 misbehaving (fedimint-core peer_id.rs)",
+   "caveat": "Federated custody by design: the guardian threshold that tolerates faults is also the threshold that holds the money. Only federations submitted to the observer are counted.",
+   "status": "verified"
+  },
+  "plane.custody.usdc_blocklist": {
+   "value": "the issuer may block addresses and freeze custodied USDC",
+   "as_of": "2025-12-12",
+   "source_url": "https://www.circle.com/legal/usdc-terms",
+   "source_type": "primary",
+   "measures": "a contractual right in Circle's USDC terms",
+   "caveat": "The terms quoted cover holders outside the EEA.",
+   "status": "verified"
+  },
+  "plane.custody.usdt_freeze_2026_04": {
+   "value": "more than $344M USDT frozen across two addresses",
+   "as_of": "2026-04-23",
+   "source_url": "https://tether.io/news/tether-supports-freeze-of-more-than-344-million-in-usdt-in-coordination-with-ofac-and-u-s-law-enforcement/",
+   "source_type": "primary",
+   "measures": "a single freeze coordinated with OFAC and US law enforcement, announced by the issuer",
+   "status": "verified"
+  },
+  "plane.provenance.guix_attestations": {
+   "value": "16 independent build attestations for Bitcoin Core v31.1, all identical",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/bitcoin-core/guix.sigs",
+   "source_type": "computed",
+   "measures": "signer directories for the v31.1 release in the guix.sigs repository, and equality of their all.SHA256SUMS files (16 of 16 identical)",
+   "caveat": "Most signers are Core contributors, so this is independent rebuilding, not independent authorship.",
+   "status": "verified"
+  },
+  "plane.provenance.asic_concentration": {
+   "value": "Bitmain 82.0%, MicroBT 15.0%, Canaan 2.1%",
+   "as_of": "2024-06-30",
+   "source_url": "https://www.jbs.cam.ac.uk/wp-content/uploads/2025/04/2025-04-cambridge-digital-mining-industry-report.pdf",
+   "source_type": "primary",
+   "measures": "share of hardware among 46 surveyed mining firms, weighted by their hashrate (Cambridge 2025 Digital Mining Industry Report, p.53)",
+   "caveat": "A survey figure, not market-wide unit sales. Three manufacturers exceed 99% between them.",
+   "status": "verified"
+  },
+  "plane.access.light_clients": {
+   "value": "\"none of these are considered production-ready yet\"",
+   "as_of": "2026-02-25",
+   "source_url": "https://ethereum.org/developers/docs/nodes-and-clients/light-clients/",
+   "source_type": "primary",
+   "measures": "ethereum.org's statement on the four named Ethereum light-client implementations",
+   "caveat": "Stated \"at the time of writing\" that page. The Portal Network, designed to serve light clients, describes its own specification as preliminary, and its Trin client is no longer maintained.",
+   "status": "verified"
+  },
+  "plane.access.pocket_dependency": {
+   "value": "applications stake at least 1,000 POKT and delegate to staked gateways",
+   "as_of": "2026-09-23",
+   "source_url": "https://docs.pocket.network/developers/application-staking/",
+   "source_type": "primary",
+   "measures": "protocol requirements for using Pocket's decentralized RPC",
+   "caveat": "A token and gateway dependency. Whether relay responses are checked for correctness is not documented.",
+   "status": "verified"
+  },
+  "plane.access.eth_blob_window": {
+   "value": "at least 4,096 epochs (about 18 days)",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/p2p-interface.md",
+   "source_type": "primary",
+   "measures": "the minimum window over which Ethereum nodes must serve blob data (and, since the Fulu upgrade, data columns)",
+   "caveat": "A minimum serving window, not a deletion rule. Data availability is a different job from storage.",
+   "status": "verified"
+  },
+  "plane.exchange.btc_xmr_swaps": {
+   "value": "two maintained BTC-XMR atomic-swap tools",
+   "as_of": "2026-09-22",
+   "source_url": "https://github.com/eigenwallet/core",
+   "source_type": "primary",
+   "measures": "eigenwallet v4.15.0 (released 2026-09-22) and BasicSwap v0.18.9 (2026-09-15); the original COMIT implementation is archived",
+   "caveat": "eigenwallet documents the BTC-to-XMR direction only. Trading volume: not found.",
+   "status": "verified"
+  },
+  "plane.fiat_edge.bisq": {
+   "value": "fiat settles outside the application, between users",
+   "as_of": "2026-09-16",
+   "source_url": "https://bisq.wiki/Introduction",
+   "source_type": "primary",
+   "measures": "how Bisq, a peer-to-peer exchange, handles fiat: payments move over ordinary national payment methods; Bisq 1 v1.10.8 and Bisq 2 v2.1.13 both maintained",
+   "caveat": "Removes the exchange company; does not remove the bank. Two Bisq wiki pages disagree on which trade protocols Bisq 2 runs.",
+   "status": "disputed"
+  },
+  "plane.fiat_edge.travel_rule_2026": {
+   "value": "83% of surveyed jurisdictions (73% in 2025)",
+   "as_of": "2026-07-16",
+   "source_url": "https://www.fatf-gafi.org/en/news/targeted-updated-va-vasps-2026.html",
+   "source_type": "primary",
+   "measures": "share of jurisdictions surveyed by FATF that have passed legislation implementing the Travel Rule for virtual-asset providers",
+   "caveat": "Legislation is not enforcement.",
+   "status": "verified"
+  },
+  "plane.fiat_edge.storm_status": {
+   "value": "convicted on one count; unsentenced; retrial of two counts set for 2027-04-26",
+   "as_of": "2026-09-11",
+   "source_url": "https://www.courtlistener.com/docket/67720380/united-states-v-storm/",
+   "source_type": "primary",
+   "measures": "United States v. Storm docket: jury verdict of 2025-08-06 on conspiracy to operate an unlicensed money-transmitting business; hung on money-laundering and sanctions conspiracy",
+   "caveat": "A motion for acquittal was still pending.",
+   "status": "verified"
+  },
+  "plane.fiat_edge.samourai": {
+   "value": "5 years and 4 years",
+   "as_of": "2025-11-19",
+   "source_url": "https://www.irs.gov/compliance/criminal-investigation/founders-of-samourai-wallet-cryptocurrency-mixing-service-sentenced-to-five-and-four-years-in-prison",
+   "source_type": "primary",
+   "measures": "prison sentences for the two Samourai Wallet founders after guilty pleas of 2025-07-30 to conspiracy to operate a money-transmitting business knowing it transmitted crime proceeds",
+   "status": "verified"
+  },
+  "plane.fiat_edge.doj_code": {
+   "value": "\"merely writing code, without ill-intent, is not a crime\"",
+   "as_of": "2025-08-21",
+   "source_url": "https://www.justice.gov/opa/speech/acting-assistant-attorney-general-matthew-r-galeotti-delivers-remarks-american",
+   "source_type": "primary",
+   "measures": "stated position of the US Justice Department's Criminal Division (Acting AAG Matthew Galeotti, speech)",
+   "caveat": "A speech, not a rule, given after the Storm verdict.",
+   "status": "verified"
+  },
+  "zec.shielded.share": {
+   "value": "29.0%",
+   "as_of": "2026-09-23",
+   "source_url": "https://zecstats.org/shielded",
+   "source_type": "aggregator",
+   "measures": "shielded ZEC as a share of all ZEC",
+   "caveat": "Not reproduced from a node by us. Since NU6.3 (2026-07-28) the Orchard pool is sealed to new value; 3.99M of 4.91M shielded ZEC sits in the Ironwood pool. Most ZEC is transparent, and pool balances do not say how many private payments occur.",
+   "cross_check": {
+    "value": "28.98%",
+    "source_url": "https://zkp.baby/",
+    "source_type": "aggregator"
+   },
+   "status": "verified"
+  },
+  "zec.orchard.sealed": {
+   "value": "no new value may enter the Orchard pool",
+   "as_of": "2026-07-28",
+   "source_url": "https://zips.z.cash/zip-0258",
+   "source_type": "primary",
+   "measures": "ZIP 258, activated with NU6.3 at block 3,428,143: Orchard sealed, new shielded value goes to Ironwood",
+   "status": "verified"
+  },
+  "xmr.heuristics.2024": {
+   "value": "average effective ring size still above 14 of 16",
+   "as_of": "2023-10-31",
+   "source_url": "https://arxiv.org/abs/2408.05332",
+   "source_type": "primary",
+   "measures": "Hammad and Victor, IEEE ICBC 2024: effective anonymity after applying known tracing heuristics; older heuristics were rendered ineffective by protocol upgrades, while a wallet decoy bug and coinbase-decoy identification had the most impact in 2019-2023",
+   "caveat": "Authors work for TRM Labs, a chain-analytics firm.",
+   "status": "verified"
+  },
+  "btc.issuance.schedule": {
+   "value": "subsidy halves every 210,000 blocks; total supply slightly under 21 million",
+   "as_of": "2026-09-22",
+   "source_url": "https://github.com/bitcoin/bitcoin/blob/master/src/validation.cpp",
+   "source_type": "primary",
+   "measures": "GetBlockSubsidy in Bitcoin Core: 50 BTC shifted right once per 210,000 blocks; the resulting total is 20,999,999.9769 BTC (Bitcoin wiki, Controlled supply)",
+   "caveat": "A consensus rule, changeable only with the agreement of the node operators who enforce it. It fixes supply; it says nothing about what a coin will buy.",
+   "status": "verified"
+  },
+  "sov.hedge.rodriguez_colombo": {
+   "value": "hedge holds for CPI shocks only, and disappeared after COVID",
+   "as_of": "2023-01",
+   "source_url": "https://ideas.repec.org/a/eee/jebusi/v133y2025ics0148619524000602.html",
+   "source_type": "primary",
+   "measures": "Rodriguez and Colombo, Journal of Economics and Business 133 (2025) 106218: monthly VAR, August 2010 to January 2023; the property is \"context-specific and likely diminishes as it achieves broader adoption\"",
+   "caveat": "Contradicts Smales on the direction of the response to CPI surprises. Different data frequency.",
+   "status": "disputed"
+  },
+  "sov.hedge.smales": {
+   "value": "linked to inflation expectations \"only for a limited set of circumstances\"",
+   "as_of": "2024-06",
+   "source_url": "https://onlinelibrary.wiley.com/doi/10.1111/acfi.13193",
+   "source_type": "primary",
+   "measures": "Smales, Accounting and Finance 64(2):1589-1611 (2024): daily crypto returns against inflation expectations and CPI surprises; crypto \"not currently\" a viable alternative to gold",
+   "caveat": "Finds returns respond negatively to CPI surprises, contradicting Rodriguez and Colombo.",
+   "status": "disputed"
+  },
+  "sov.corr.imf": {
+   "value": "Bitcoin-S&P 500 correlation 0.01 (2017-19) to 0.36 (2020-21)",
+   "as_of": "2021-12-31",
+   "source_url": "https://www.imf.org/en/Blogs/Articles/2022/01/11/crypto-prices-move-more-in-sync-with-stocks-posing-new-risks",
+   "source_type": "primary",
+   "measures": "correlation of daily price moves (Adrian, Iyer and Qureshi, IMF Blog, 2022-01-11)",
+   "caveat": "Data ends in 2021.",
+   "status": "verified"
+  },
+  "interop.2026.liquid": {
+   "value": "about 3,996 BTC pegged out; 3,400 returned; about 598.5 BTC unrecovered",
+   "as_of": "2026-09-17",
+   "source_url": "https://api.fxtwitter.com/Liquid_BTC/status/2097404704028545175",
+   "source_type": "primary",
+   "measures": "Blockstream Liquid, a federated Bitcoin sidechain (11-of-15 functionaries plus a whitelist of peg-out keys). A cache-key collision in the Elements software's range-proof check let about 4,000 unbacked L-BTC be created; they were pegged out through the normal path and the functionaries signed because their own nodes judged the coins valid. Incident 2026-09-06.",
+   "caveat": "The operator's report: \"No keys were compromised.\" Reserve fell from about 4,205 to 197 BTC before recovery. Fixed in Elements v23.3.4 (2026-09-09). Peg-outs still paused at the 2026-09-17 update. DefiLlama's $320M is the gross amount, not the net loss. The report's own timestamps conflict with the Bitcoin payout block (965,783, 14:28:56 UTC).",
+   "status": "verified"
+  },
+  "interop.2026.liquid.rewind": {
+   "value": "Liquid blocks from the exploit window were discarded",
+   "as_of": "2026-09-23",
+   "source_url": "https://blockstream.info/liquid/api/block-height/4050336",
+   "source_type": "computed",
+   "measures": "canonical block 4,050,335 is dated 2026-09-06 13:52 UTC and 4,050,336 is dated 2026-09-09 21:05 UTC",
+   "caveat": "Consistent with the operator's stated plan to restore the corrected state \"including rejection of the invalid peg-out\". The number of discarded blocks is unknown.",
+   "status": "verified"
+  },
+  "interop.2026.kelp": {
+   "value": "116,500 rsETH, about $292M",
+   "as_of": "2026-04-18",
+   "source_url": "https://layerzero.network/blog/layerzero-labs-kelpdao-incident-report",
+   "source_type": "primary",
+   "measures": "Kelp's rsETH route over LayerZero, configured with a single verifier (1-of-1). Poisoned internal RPC nodes and a DDoS on external ones led the verifier to attest a burn that never happened, releasing escrowed rsETH.",
+   "caveat": "Attributed to North Korea's TraderTraitor group. Blame is disputed: Kelp says 1-of-1 was the documented default; LayerZero says it contradicted its recommendations. Chainalysis reports the Arbitrum Security Council froze 30,766 ETH of the proceeds, itself a privileged override.",
+   "status": "verified"
+  },
+  "interop.2026.gravity": {
+   "value": "about $5.4M",
+   "as_of": "2026-05-30",
+   "source_url": "https://www.quillaudits.com/blog/hack-analysis/gravity-bridge-demon-mapping-poisoning",
+   "source_type": "aggregator",
+   "measures": "Gravity Bridge, whose own validator set co-signs batches on Ethereum. Worthless tokens carried over IBC were mapped to real USDC, USDT, WETH and PAXG through crafted token names in the bridge's registry.",
+   "caveat": "The cause is disputed: DefiLlama records a validator key compromise; on-chain analysis finds none and says the validators signed honestly. IBC itself worked as designed. No post-mortem published.",
+   "status": "disputed"
+  },
+  "interop.2026.verus": {
+   "value": "about 26.6% of the ETH and tBTC in the bridge contract lost (May); a second drain in July",
+   "as_of": "2026-07-22",
+   "source_url": "https://github.com/VerusCoin/VerusCoin/releases/tag/v1.2.17",
+   "source_type": "primary",
+   "measures": "Verus-Ethereum bridge: Merkle proofs against state roots signed by notary witnesses, so proof-verified but rooted in a committee. In May the signatures were genuine and the contract never checked that the proved export locked matching value.",
+   "caveat": "Not a pure light client. The July drain (DefiLlama $7.53M) has no statement from Verus and its mechanism is disputed between secondary sources. Losses were socialized across holders.",
+   "status": "verified"
+  },
+  "interop.2026.syscoin": {
+   "value": "5 billion SYS minted, all returned and burned",
+   "as_of": "2026-06-15",
+   "source_url": "https://api.fxtwitter.com/syscoin/status/2063749418365665413",
+   "source_type": "primary",
+   "measures": "Syscoin's internal bridge, verified by an SPV proof relay, the closest of the five to a light client: the relay accepted a malformed proof (\"incorrectly accepting or interpreting a transaction proof\").",
+   "caveat": "Realized loss about zero. DefiLlama's $10M is notional.",
+   "status": "verified"
+  },
+  "interop.2026.pattern": {
+   "value": "five bridge designs had incidents; four operator accounts show the same failure class",
+   "as_of": "2026-09-23",
+   "source_url": "https://api.llama.fi/hacks",
+   "source_type": "derived",
+   "measures": "reading of the five largest distinct 2026 bridge incidents by verification model: federation (Liquid), message verifier (Kelp), validator co-signing (Gravity), committee-rooted proofs (Verus), SPV relay (Syscoin)",
+   "caveat": "In the four incidents with the operator's own account (Liquid, Kelp, Verus in May, Syscoin), the keys and the cryptography held; what failed was the logic that decided what to accept. The Gravity Bridge cause is disputed (key compromise versus token-mapping poisoning) and has no post-mortem, and the July Verus drain has no statement. This is the failure class this review found beating implementation diversity: an error in the rule, not the lock.",
+   "status": "verified"
+  },
+  "btc.ocean.share": {
+   "value": "1.92% of blocks (7 days)",
+   "as_of": "2026-09-23",
+   "source_url": "https://mempool.space/api/v1/mining/pools/1w",
+   "source_type": "aggregator",
+   "measures": "OCEAN pool block share by coinbase tag; 2.48% over 30 days",
+   "caveat": "The share of OCEAN blocks built on DATUM miner templates is not published.",
+   "status": "verified"
+  },
+  "btc.pools.top3_with_proxies": {
+   "value": "about 73% of blocks",
+   "as_of": "2026-09-23",
+   "source_url": "https://mainnet.observer/csv/miningpools-centralization-index-with-proxy-pools.csv",
+   "source_type": "computed",
+   "measures": "block share of the three largest template builders when pools b10c identifies as AntPool proxies are merged: 73.6% (7 days), 72.4% (30 days)",
+   "caveat": "The proxy grouping is b10c's inference from template similarity. Label-only top three: 60.08% (7 days).",
+   "status": "verified"
+  },
+  "ln.impl.share.last_open": {
+   "value": "about 87% LND (2018-2020 data); 91.3% LND (2020-09-21)",
+   "as_of": "2020-09-21",
+   "source_url": "https://arxiv.org/pdf/2002.06564",
+   "source_type": "primary",
+   "measures": "LND share of Lightning nodes inferred from default gossip parameters: 91.3% (Mizrahi and Zohar, snapshot of 2020-09-21); about 87% in ICDCN 2021 (https://schmiste.github.io/icdcn21ln.pdf)",
+   "caveat": "Six years old. Fingerprinting defaults undercounts nodes that change them.",
+   "status": "verified"
+  },
+  "xmr.cuprate.status": {
+   "value": "preview release; not production-ready by its own documentation",
+   "as_of": "2026-09-23",
+   "source_url": "https://user.cuprate.org/",
+   "source_type": "primary",
+   "measures": "Cuprate, an independently written Monero node: cuprated 0.1.0-preview (2026-08-01), which \"cannot currently replace monerod in production\"",
+   "caveat": "It validates consensus rules itself but checks proof-of-work with the same C++ RandomX library monerod uses.",
+   "status": "verified"
+  },
+  "sol.alpenglow.status": {
+   "value": "not scheduled on any cluster",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/anza-xyz/agave/wiki/v4.3-Release-Schedule",
+   "source_type": "primary",
+   "measures": "activation status of the Alpenglow feature gate on mainnet, testnet and devnet",
+   "caveat": "Its white paper says crash-only faults below 40% of stake are always tolerated, against one-third today.",
+   "status": "verified"
+  },
+  "sol.teraswitch.cause": {
+   "value": "a routing-policy error took 13 of 31 sites down for 33 minutes",
+   "as_of": "2026-08-12",
+   "source_url": "http://www.teraswitchstatus.com/incidents/kwg2ffkjg5q1",
+   "source_type": "primary",
+   "measures": "the hosting vendor's own post-mortem",
+   "caveat": "Monitors disagree on whether finality stalled.",
+   "status": "verified"
+  },
+  "rollup.polygon_zkevm": {
+   "value": "withdrawals halted about 23.6 hours; chain later shut down",
+   "as_of": "2026-07-01",
+   "source_url": "https://forum.polygon.technology/t/13702",
+   "source_type": "primary",
+   "measures": "Polygon zkEVM: withdrawals halted 2024-03-24 00:03 to 23:40 UTC; a 6-of-8 Security Council approved an emergency state that bypassed the timelock; sunset announced 2025-06-11 and the sequencer shut down 2026-07-01",
+   "caveat": "The halt began before the council vote, so \"froze by multisig vote\" overstates the sequence.",
+   "status": "verified"
+  },
+  "rollup.linea.censor": {
+   "value": "\"We also censored the hacker's addresses.\"",
+   "as_of": "2024-06-02",
+   "source_url": "https://x.com/LineaBuild/status/1797283471058145481",
+   "source_type": "primary",
+   "measures": "Linea's own statement after pausing its sequencer for about 74 minutes",
+   "status": "verified"
+  },
+  "ibc.classic.volume": {
+   "value": "about 8,300 transfers a day, about $356M a month",
+   "as_of": "2026-09-23",
+   "source_url": "https://api2.mapofzones.com/v1/graphql",
+   "source_type": "aggregator",
+   "measures": "IBC token transfers between Cosmos chains over the trailing 30 days: about 249,570 transfers and $355.6M, counted on one side",
+   "caveat": "A single source, and only 69 of 117 zones were flagged as synced. This is light-client-verified, permissionlessly relayed transfer inside one consensus family.",
+   "status": "verified"
+  },
+  "ibc.eureka.council": {
+   "value": "4-of-7 on-chain; the documentation says 5-of-7",
+   "as_of": "2026-09-23",
+   "source_url": "https://etherscan.io/address/0x7B96CD54aA750EF83ca90eA487e0bA321707559a",
+   "source_type": "primary",
+   "measures": "the IBC Eureka Security Council Safe on Ethereum: getThreshold() returns 4 of 7 owners, unchanged since 2025-04-09",
+   "caveat": "The link between that Safe and the council comes from Cosmos Labs' operations repository; the documentation page lists no addresses and still says 5-of-7. Timelock of three days; relayers permissioned (four addresses); any one of five single-key pausers can pause alone.",
+   "status": "disputed"
+  },
+  "ibc.axelar_share": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "share of IBC value that rides Axelar's committee bridge",
+   "caveat": "NOT FOUND. An earlier edition printed '62.4%' with no traceable source; withdrawn. On Map of Zones, channels with Axelar at one end carried 0.45-0.75% of 30-day IBC USD volume, but Axelar's link to EVM chains is its own validator committee, not IBC, so the 62.4% figure may have described something else. It is not a figure we can print.",
+   "status": "withdrawn"
+  },
+  "cosmos.atom.drawdown": {
+   "value": "about -96% from its all-time high",
+   "as_of": "2026-09-23",
+   "source_url": "https://api.coingecko.com/api/v3/coins/cosmos",
+   "source_type": "aggregator",
+   "measures": "ATOM price $1.82 against an all-time high of $43.84 on 2021-09-19 (CoinGecko, -95.84%); CoinMarketCap gives -95.95%",
+   "status": "verified"
+  },
+  "ibc.relayer.hermes": {
+   "value": "no commit since September 2025",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/informalsystems/hermes/commits/master",
+   "source_type": "primary",
+   "measures": "last commit on the default branch of Hermes, the most-used IBC relayer: 2025-09-23; last release v1.13.3 (2025-09-03)",
+   "caveat": "The Go relayer, rly, has been archived since 2025.",
+   "status": "verified"
+  },
+  "tor.fallback.mechanism": {
+   "value": "about 27 hours",
+   "as_of": "2026-09-23",
+   "source_url": "https://spec.torproject.org/dir-spec/consensus-formats.html",
+   "source_type": "primary",
+   "measures": "how long clients keep working if the directory authorities stop producing a consensus: 200 fallback mirrors re-serve the last signed consensus, which clients stop using 24 hours after it expires",
+   "caveat": "Mirrors cannot sign. If the authorities are only unreachable from one client but still producing, fallbacks work indefinitely.",
+   "status": "verified"
+  },
+  "prescription.signal.users": {
+   "value": "about 70 million active users (third-party estimate)",
+   "as_of": "2025-01-22",
+   "source_url": "https://www.businessofapps.com/data/signal-statistics/",
+   "source_type": "aggregator",
+   "measures": "estimated Signal active users in 2024",
+   "caveat": "Signal has confirmed no figure.",
+   "status": "disputed"
+  },
+  "data.theory.ec_independence": {
+   "value": "erasure coding's durability advantage assumes independent failures",
+   "as_of": "2002-03",
+   "source_url": "https://www.cs.cornell.edu/people/egs/iptpsarchive/www.cs.rice.edu/Conferences/IPTPS02/170.pdf",
+   "source_type": "primary",
+   "measures": "Weatherspoon and Kubiatowicz, Erasure Coding vs. Replication (IPTPS 2002): the advantage is derived assuming independent, identically distributed failures, which the authors call \"the most troubling assumption\"",
+   "caveat": "Erasure-coded shards placed in correlated locations lose data the same way correlated replicas did. The fix for 2021 is enforced placement across failure domains, not a different code.",
+   "status": "verified"
+  },
+  "data.ipfs.persistence_guarantee": {
+   "value": "none without pinning",
+   "as_of": "2026-09-23",
+   "source_url": "https://docs.ipfs.tech/concepts/persistence/",
+   "source_type": "primary",
+   "measures": "IPFS's own documentation: it \"doesn't guarantee that any content is persistently available\"",
+   "status": "verified"
+  },
+  "data.ipfs.gateway_sunset": {
+   "value": "ipfs.io and dweb.link retired on 2026-09-21",
+   "as_of": "2026-09-23",
+   "source_url": "https://gatewaychanges.ipfs.io/",
+   "source_type": "primary",
+   "measures": "live HTTP response from the public gateways: status 429 with a Sunset header of 2026-09-21, re-tested 2026-09-23",
+   "caveat": "Replaced by a browser-only service-worker gateway.",
+   "status": "verified"
+  },
+  "data.ipfs.successor_maintainer": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "a named maintainer for IPFS's reference implementations after 2026-09-30",
+   "caveat": "NOT FOUND as of 2026-09-23. Kubo's README (edited 2026-09-16): 'There is no dedicated maintainer at the moment.'",
+   "status": "not_found",
+   "searched_as_of": "2026-09-23"
+  },
+  "data.filecoin.redundancy": {
+   "value": "a full copy per deal; the new SDK defaults to 2 copies",
+   "as_of": "2026-09-22",
+   "source_url": "https://docs.filecoin.cloud/core-concepts/storage-providers/",
+   "source_type": "primary",
+   "measures": "Filecoin's replication model: each deal stores a full copy; Filecoin Onchain Cloud defaults to two copies on distinct provider IDs",
+   "caveat": "A changeable SDK default. A different provider ID is not a different failure domain, and no check on ownership or location was found.",
+   "status": "verified"
+  },
+  "data.filecoin.placement_enforcement": {
+   "value": "no placement rule in the protocol",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0118.md",
+   "source_type": "primary",
+   "measures": "who enforces that copies are spread out: the Filecoin Plus \"two or more regions\" rule is enforced off-chain, and FIP-0118 (accepted 2026-07-14) removes Filecoin Plus",
+   "caveat": "Mainnet date for FIP-0118 not set (targeted for the week of 2026-10-19).",
+   "status": "verified"
+  },
+  "data.filecoin.dataloss_2021_rule": {
+   "value": "10 replicas across 4+ providers, all in one data center that burned",
+   "as_of": "2021-12-11",
+   "source_url": "https://github.com/filecoin-project/community/discussions/407",
+   "source_type": "primary",
+   "measures": "the diversity rule the 2021 Slingshot data met on paper",
+   "caveat": "A different provider identity is not a different failure domain.",
+   "status": "verified"
+  },
+  "data.filecoin.shared_code": {
+   "value": "three node implementations share their proof, VM and finality code",
+   "as_of": "2026-09-23",
+   "source_url": "https://raw.githubusercontent.com/filecoin-project/venus/master/go.mod",
+   "source_type": "derived",
+   "measures": "dependencies of Lotus, Venus and Forest: all use the same proofs library and virtual machine (ref-fvm) and the same F3 finality code",
+   "caveat": "Three clients, one consensus-critical core: implementation diversity at the edges, not where a consensus bug would live.",
+   "status": "verified"
+  },
+  "data.filecoin.raw_power_yoy": {
+   "value": "committed capacity down 56% in a year; storage providers 1,347 to 510",
+   "as_of": "2026-09-21",
+   "source_url": "https://data.filecoindataportal.xyz/daily_network_metrics.json",
+   "source_type": "computed",
+   "measures": "raw byte power 3,125.6 PiB to 1,372.8 PiB and active storage providers 1,347 to 510, one year to 2026-09-21",
+   "caveat": "Committed capacity is not stored client data.",
+   "status": "verified"
+  },
+  "data.filecoin.active_deal_bytes": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "unique client bytes stored on Filecoin",
+   "caveat": "NOT FOUND from a primary source. Only an aggregator publishes it, and its own quarterly figures conflict. Raw power (1,373 PiB) is committed capacity including every copy and sectors holding no data.",
+   "status": "not_found",
+   "searched_as_of": "2026-09-23"
+  },
+  "data.filecoin.f3_audit": {
+   "value": "an external audit was performed; no report is published",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/filecoin-project/go-f3/issues/255",
+   "source_type": "primary",
+   "measures": "the audit status of F3, Filecoin's fast-finality layer: repository issues reference an external audit (2024), auditor unnamed, no report released",
+   "status": "verified"
+  },
+  "data.filecoin.pdp_audit": {
+   "value": "Zellic audit of the PDP contracts, 2025-04-10",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/Zellic/publications",
+   "source_type": "primary",
+   "measures": "external audit of Filecoin's Proof of Data Possession verifier contracts",
+   "caveat": "PDP is a proof system; the last published audit of the PoRep/PoSt proofs is 2021-12-10.",
+   "status": "verified"
+  },
+  "data.arweave.weave_size": {
+   "value": "about 392 TB in the weave",
+   "as_of": "2026-09-23",
+   "source_url": "https://arweave.net/block/current",
+   "source_type": "primary",
+   "measures": "bytes committed to the weave at height 2,006,902, one logical copy",
+   "caveat": "Not evidence that any replica holds every byte.",
+   "status": "verified"
+  },
+  "data.arweave.permanence_pitch": {
+   "value": "\"20 replicas for 200 years\", conditional on token price",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/ArweaveTeam/arweave/raw/master/papers/whitepaper_2023.pdf",
+   "source_type": "primary",
+   "measures": "Arweave's 2023 whitepaper: users \"pay upfront for the storage of 20 replicas for 200 years\", with a 0.5% annual cost-decline assumption described as sufficient \"in the absence of token price changes\"",
+   "caveat": "The pitch is in the 2023 whitepaper, not the yellowpaper. It is an economic assumption, conditional on the token price.",
+   "status": "verified"
+  },
+  "data.arweave.node_audit": {
+   "value": "one component, 4 person-days (NCC Group, 2024-12-06)",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/ArweaveTeam/arweave/blob/master/papers/NCC_Group_ForwardResearch_E020578_Report_2024-12-06_v1.0.pdf",
+   "source_type": "primary",
+   "measures": "scope of the only external audit located: the RandomXSquared component",
+   "caveat": "Not a full-node audit.",
+   "status": "verified"
+  },
+  "data.walrus.mainnet": {
+   "value": "2025-03-25",
+   "as_of": "2026-09-23",
+   "source_url": "https://docs.wal.app/blog/06_mainnet.html",
+   "source_type": "primary",
+   "measures": "Walrus mainnet start (epoch 1)",
+   "status": "verified"
+  },
+  "data.walrus.redundancy": {
+   "value": "1,000 shards; any 334 recover a file; about 4.5x overhead",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/MystenLabs/walrus/blob/main/crates/walrus-core/src/encoding/config.rs",
+   "source_type": "primary",
+   "measures": "deployed encoding: two-dimensional Reed-Solomon (\"RedStuff\") over 1,000 shards, 334 needed to read, 667 to write, 4.5x plus a fixed 64 MB per file",
+   "caveat": "The documentation's parameter page still describes an older scheme; the code is what runs. Effective overhead is higher for small files.",
+   "status": "disputed"
+  },
+  "data.walrus.placement": {
+   "value": "every file on all 1,000 shards; shards assigned by stake",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/MystenLabs/walrus/blob/main/mainnet-contracts/walrus/sources/staking/staking_inner.move",
+   "source_type": "primary",
+   "measures": "Walrus placement rule: shards allocated in proportion to stake, capped at 10% per node, with no rule on operator, network or country",
+   "caveat": "Because every file sits on every shard, failure-domain exposure is one network-wide number anyone can measure; losing 667 or more shards would lose every file. The cap is per node, not per operator.",
+   "status": "verified"
+  },
+  "data.walrus.hosting_concentration": {
+   "value": "three hosting companies run 41.1% of shards",
+   "as_of": "2026-09-23",
+   "source_url": "https://whois.cymru.com",
+   "source_type": "derived",
+   "measures": "Walrus storage-node hostnames from the Walrus client, mapped to network operators: Hetzner 20.1%, OVH 11.1%, WebNX 9.9%",
+   "caveat": "One derivation by us. A hostname may not be where the disk is.",
+   "status": "verified"
+  },
+  "data.walrus.implementations": {
+   "value": "one storage-node codebase, on one control chain (Sui)",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/MystenLabs/walrus",
+   "source_type": "primary",
+   "measures": "production codebases for Walrus storage nodes and the chain that coordinates them",
+   "status": "verified"
+  },
+  "data.walrus.stored_active": {
+   "value": "477 TB of live data",
+   "as_of": "2026-07-29",
+   "source_url": "https://arxiv.org/abs/2505.05370",
+   "source_type": "primary",
+   "measures": "unencoded bytes of live files (686 TB ever uploaded, 17.6M files), per the Mysten Labs paper v4",
+   "caveat": "Authored by the team that built it. Purchased or committed capacity is not stored data.",
+   "status": "verified"
+  },
+  "data.walrus.incidents": {
+   "value": "four write outages in 2026, about 23.6 hours in total",
+   "as_of": "2026-09-23",
+   "source_url": "https://status.walrus.xyz/api/v2/incidents.json",
+   "source_type": "primary",
+   "measures": "self-reported incidents: all caused by stalls of the Sui chain; reads unaffected; no data loss reported",
+   "caveat": "The control plane is the failure domain: when Sui stops, Walrus stops accepting writes.",
+   "status": "verified"
+  },
+  "data.walrus.emergency_upgrade": {
+   "value": "an emergency upgrade path that bypasses quorum exists",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/MystenLabs/walrus/blob/main/mainnet-contracts/walrus/sources/upgrade.move",
+   "source_type": "primary",
+   "measures": "a capability in the Walrus contracts allowing \"upgrades to be performed without quorum\"",
+   "caveat": "Our on-chain read found it has not been burned; its holder was not identified.",
+   "status": "verified"
+  },
+  "data.walrus.audits": {
+   "value": "contracts audited (OtterSec, 2025); node software and encoding: none found",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/sui-foundation/security-audits/blob/main/docs/mysten_walrus_contracts_audit_final.pdf",
+   "source_type": "primary",
+   "measures": "scope of published external audits",
+   "status": "verified"
+  },
+  "data.walrus.lease_term": {
+   "value": "storage is a lease of at most about two years",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/MystenLabs/walrus/blob/main/docs/content/walrus-client/storing-blobs.mdx",
+   "source_type": "primary",
+   "measures": "maximum prepaid storage period (53 epochs); new files are deletable by default",
+   "caveat": "A rental that can be renewed, not permanence.",
+   "status": "verified"
+  },
+  "data.sia.redundancy": {
+   "value": "10-of-30 shards (3x) by default",
+   "as_of": "2026-09-23",
+   "source_url": "https://raw.githubusercontent.com/SiaFoundation/renterd/master/api/setting.go",
+   "source_type": "primary",
+   "measures": "Sia default erasure coding",
+   "status": "verified"
+  },
+  "data.sia.placement": {
+   "value": "one host per network block, enforced by the client, not the protocol",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/SiaFoundation/renterd/blob/master/autopilot/contractor/hostset.go",
+   "source_type": "primary",
+   "measures": "renterd's host filter: one host per IPv4 /24 or IPv6 /32, on by default",
+   "caveat": "The newer default path, a hosted indexer, showed no such rule in a code search. A network block is not a failure domain either.",
+   "status": "verified"
+  },
+  "data.sia.default_path": {
+   "value": "a hosted indexer is now the recommended way to use Sia",
+   "as_of": "2026-09-23",
+   "source_url": "https://docs.sia.tech/get-started-with-sia/sia-software-overview.md",
+   "source_type": "primary",
+   "measures": "Sia documentation: renterd is \"no longer the preferred way\"; a hosted indexer service is recommended",
+   "caveat": "The default user path now runs through an operator.",
+   "status": "verified"
+  },
+  "data.sia.contract_bytes": {
+   "value": "3.40 PB in active contracts",
+   "as_of": "2026-09-23",
+   "source_url": "https://api.siascan.com/metrics/block",
+   "source_type": "primary",
+   "measures": "sum of file sizes in 15,354 active contracts, including redundancy",
+   "caveat": "Hosts report 2.13 PB used of 7.52 PB advertised; the two measures do not reconcile.",
+   "status": "disputed"
+  },
+  "data.sia.unique_bytes": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "unique customer bytes stored on Sia, before redundancy",
+   "caveat": "NOT FOUND.",
+   "status": "not_found",
+   "searched_as_of": "2026-09-23"
+  },
+  "data.storj.coordination": {
+   "value": "metadata, repair and payment run through Storj-operated satellites",
+   "as_of": "2026-09-23",
+   "source_url": "https://www.storj.io/dcs-satellites",
+   "source_type": "primary",
+   "measures": "Storj's coordination layer: four satellites, all operated by Storj Labs",
+   "caveat": "Erasure-coded and mature, but coordinated by one company, so it does not count as decentralized persistence here.",
+   "status": "verified"
+  },
+  "data.storj.chapter11": {
+   "value": "Storj Labs filed for Chapter 11 on 2026-07-26",
+   "as_of": "2026-09-23",
+   "source_url": "https://www.storj.io/blog/storj-announces-voluntary-financial-restructuring-to-resolve-legacy-liabilities-and-position-the-business-for-growth/",
+   "source_type": "primary",
+   "measures": "bankruptcy status of the company that runs the satellites",
+   "caveat": "A restructuring, not a shutdown.",
+   "status": "verified"
+  },
+  "data.storj.customer_bytes": {
+   "value": "52.35 PB of customer data",
+   "as_of": "2026-09-23",
+   "source_url": "https://stats.storjshare.io/data.json",
+   "source_type": "primary",
+   "measures": "customer bytes summed across four satellites (86.57 PB after erasure-coding expansion)",
+   "caveat": "The stats page is marked work in progress.",
+   "status": "verified"
+  },
+  "data.swarm.country_concentration": {
+   "value": "79.8% of staking nodes in one country",
+   "as_of": "2026-08-31",
+   "source_url": "https://blog.ethswarm.org/foundation/2026/swarm-state-of-the-network-august-2026/",
+   "source_type": "computed",
+   "measures": "Swarm staking nodes by country: Finland 1,304 of 1,635; Finland and Germany together 94.9%",
+   "status": "verified"
+  },
+  "data.swarm.implementations": {
+   "value": "one client (Bee) on 82.4% of nodes",
+   "as_of": "2026-09-23",
+   "source_url": "https://api.swarmscan.io/v1/network/stats",
+   "source_type": "computed",
+   "measures": "Swarm client share by user agent",
+   "caveat": "384 nodes report an agent of unknown origin.",
+   "status": "verified"
+  },
+  "data.swarm.bytes_stored": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "bytes stored on Swarm",
+   "caveat": "NOT FOUND.",
+   "status": "not_found",
+   "searched_as_of": "2026-09-23"
+  },
+  "data.logos.status": {
+   "value": "narrowed to file sharing; no persistence guarantees",
+   "as_of": "2026-02-05",
+   "source_url": "https://blog.logos.co/article/developer-update-jan-2026",
+   "source_type": "primary",
+   "measures": "Logos Storage (formerly Codex) v0.3.0 removed its marketplace, proofs and erasure coding to focus on file sharing",
+   "caveat": "Not a persistence layer today. Not to be confused with OpenAI Codex.",
+   "status": "verified"
+  },
+  "data.da.retention": {
+   "value": "Ethereum ~18 days; EigenDA ~14 days; Celestia 7 days",
+   "as_of": "2026-09-23",
+   "source_url": "https://ethereum.github.io/consensus-specs/specs/deneb/p2p-interface/",
+   "source_type": "primary",
+   "measures": "minimum windows over which data-availability layers serve published data",
+   "caveat": "Data availability proves data was published, for a window. It is a different job from keeping data, so these layers are excluded from the persistence slot by definition.",
+   "status": "verified"
+  }
+ }
+}

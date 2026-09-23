@@ -221,3 +221,4 @@ svg { display: block; }
 .menu-button[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 .menu-button[aria-expanded="true"] { border-color: var(--gold-soft); }
 @media (prefers-reduced-motion: reduce) { .menu-button span { transition: none; } }
+.building-dialog .path-list { text-align: left; margin-top: 1.6rem; }
