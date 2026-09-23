@@ -336,7 +336,7 @@
    "source_url": "https://cryptoslate.com/solana-nearly-froze-as-a-single-routing-error-took-29-of-the-network-stake-offline/",
    "source_type": "aggregator",
    "measures": "share of staked SOL disconnected for ~33 minutes by a routing error at one vendor's Miami facility",
-   "caveat": "Finality needs more than two-thirds of stake, so it halts once more than one-third (about 33.33%) is offline: a margin of about 4.50 points. '33.34%' in secondary coverage is a rounding. Marinade reported that on the day the vendor's network (AS20326) carried 27.34% of stake, 94% of which went offline together. Solana's proposed Alpenglow consensus would raise the crash tolerance to 40% of stake; it has no scheduled mainnet date.",
+   "caveat": "Finality needs more than two-thirds of stake, so it halts once more than one-third (about 33.33%) is offline: a margin of about 4.50 points. '33.34%' in secondary coverage is a rounding. Marinade reported that on the day the vendor's network (AS20326) carried 27.34% of stake, 94% of which went offline together. Solana's proposed Alpenglow consensus would raise the crash tolerance to 40% of stake; it had no scheduled mainnet date as of 2026-09-23.",
    "status": "verified"
   },
   "sol.teraswitch.share": {
@@ -838,7 +838,7 @@
    "supersedes": "cbBTC $8.64B, WBTC $10.0B, tBTC $372.7M (2026-09-22)"
   },
   "adoption.bridge.losses.fell": {
-   "value": "-96% by 2024-25, then $744.7M in 2026 to date",
+   "value": "-96% by 2024-25, then $744.7M in 2026 through 22 September",
    "as_of": "2026-09-22",
    "source_url": "https://api.llama.fi/hacks",
    "source_type": "computed",
@@ -969,7 +969,7 @@
    "source_url": "https://api.llama.fi/hacks",
    "source_type": "computed",
    "measures": "43 DefiLlama hack records flagged bridgeHack=true in 2026 through 2026-09-22; 40.5% of all tracked hack losses that year",
-   "caveat": "Year to date.",
+   "caveat": "2026 through 22 September only.",
    "status": "verified"
   },
   "sol.finality.threshold": {
