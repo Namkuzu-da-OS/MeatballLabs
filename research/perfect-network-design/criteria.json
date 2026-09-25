@@ -10,7 +10,7 @@
     "name": "Meatball Labs"
   },
   "license": "Engineering analysis. Not investment advice.",
-  "description": "Twenty-five normative design criteria for decentralized money infrastructure. They encode stated preferences (user authority, independent verification, replaceability, survival under pressure); they are not protocol-neutral laws, and one of them (PND-C08) is labelled a hypothesis. Each criterion names the human need it serves, the test that decides it, the evidence class that satisfies that test and the failure mode it prevents, so a language model can trace any verdict from evidence up to the purpose it serves.",
+  "description": "Twenty-six normative design criteria for decentralized money infrastructure. They encode stated preferences (user authority, independent verification, replaceability, survival under pressure); they are not protocol-neutral laws, and one of them (PND-C08) is labelled a hypothesis. Each criterion names the human need it serves, the test that decides it, the evidence class that satisfies that test and the failure mode it prevents, so a language model can trace any verdict from evidence up to the purpose it serves.",
   "usage": {
     "purpose": "Score any protocol, chain or piece of decentralized infrastructure against a fixed, dated standard, and trace each verdict to the human needs it serves.",
     "rules": [
@@ -28,7 +28,7 @@
       "UNMEASURED": "No evidence of the required class could be located. Not a synonym for FAILS.",
       "NOT_APPLICABLE": "The criterion is outside the role the project claims. Not a defect."
     },
-    "evaluation_prompt": "Evaluate <PROJECT> against PND-CRITERIA v1.1.0 (The Perfect Network Design).\nFirst state the role the project claims, the deployment you examined, and your evidence cutoff date.\nFor each of the 25 criteria return: its ID; a verdict of MEETS, PARTIAL, FAILS, UNMEASURED or NOT_APPLICABLE; and every human need (N1-N9) it serves. For MEETS, PARTIAL or FAILS, give the dated evidence with a link and say whether it shows deployed behaviour or only a specification. For UNMEASURED, list what you searched and your search date. For NOT_APPLICABLE, name the role mismatch. For a criterion marked as a hypothesis, return HYPOTHESIS instead of a need and do not treat its failure as harm to users.\nFor PARTIAL or FAILS, name the failure mode and say whether it is architectural, deployment, measurement, usability, economic or governance.\nRoadmaps, token price, TVL, market capitalisation, node counts and popularity are not evidence. Label vendor claims. Keep a stock apart from a flow, data availability apart from storage, and pool share apart from hardware ownership.\nDo not produce a composite score or a rank.\nThen answer in plain language: Which human needs does this project serve, and which does it put at risk? Do you accept that those needs follow from the stated purpose (flag any premise you reject)? What evidence would change your verdicts?"
+    "evaluation_prompt": "Evaluate <PROJECT> against PND-CRITERIA v1.1.0 (The Perfect Network Design).\nFirst state the role the project claims, the deployment you examined, and your evidence cutoff date.\nFor each of the 26 criteria return: its ID; a verdict of MEETS, PARTIAL, FAILS, UNMEASURED or NOT_APPLICABLE; and every human need (N1-N9) it serves. For MEETS, PARTIAL or FAILS, give the dated evidence with a link and say whether it shows deployed behaviour or only a specification. For UNMEASURED, list what you searched and your search date. For NOT_APPLICABLE, name the role mismatch. For a criterion marked as a hypothesis, return HYPOTHESIS instead of a need and do not treat its failure as harm to users.\nFor PARTIAL or FAILS, name the failure mode and say whether it is architectural, deployment, measurement, usability, economic or governance.\nRoadmaps, token price, TVL, market capitalisation, node counts and popularity are not evidence. Label vendor claims. Keep a stock apart from a flow, data availability apart from storage, and pool share apart from hardware ownership.\nDo not produce a composite score or a rank.\nThen answer in plain language: Which human needs does this project serve, and which does it put at risk? Do you accept that those needs follow from the stated purpose (flag any premise you reject)? What evidence would change your verdicts?"
   },
   "criteria": [
     {
@@ -361,6 +361,20 @@
         "N7"
       ],
       "kind": "requirement"
+    },
+    {
+      "id": "PND-C26",
+      "title": "Upkeep must not depend on one funder",
+      "statement": "Maintaining the reference software and running the default entry points (bootstrap nodes, routing and config services, gateways) is funded and staffed by more than one independent party, so that one funder leaving does not leave the protocol unmaintained.",
+      "test": "Who pays the people who ship releases and security fixes, and who runs the servers a new node contacts by default? If one of them stopped tomorrow, would releases, fixes and default discovery continue? Has a funder ever left, and what happened?",
+      "evidence_required": "Named maintainers and their funders for each consensus- or network-critical implementation, and the operators of every default entry point, dated.",
+      "failure_mode": "The protocol is decentralized; its upkeep is not. When the one funder walks, the data stays but releases, security fixes and the front door stop. IPFS in September 2026 is the case on record.",
+      "serves": [
+        "N7",
+        "N1",
+        "N3"
+      ],
+      "kind": "requirement"
     }
   ],
   "notes": {
@@ -369,7 +383,7 @@
     "source": "The Perfect Network Design, Meatball Labs, September 2026 (edition of 2026-09-23). https://meatball-labs.com/research/perfect-network-design/",
     "on_normativity": "Earlier editions called these criteria \"clean-room\" and \"derived without reference to any existing protocol\". That overstated them. They are the authors' stated design commitments, and a reader who rejects a premise should reject the criteria built on it."
   },
-  "dateModified": "2026-09-23",
+  "dateModified": "2026-09-25",
   "framework": {
     "chain": "purpose -> human needs -> criteria -> evidence -> verdict",
     "premises_vs_findings": "The purpose and the needs are PREMISES: stated values this review adopts and a reader may reject. Criteria are design commitments derived from them. Only verdicts backed by dated evidence are FINDINGS.",

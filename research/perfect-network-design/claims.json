@@ -336,7 +336,7 @@
    "source_url": "https://cryptoslate.com/solana-nearly-froze-as-a-single-routing-error-took-29-of-the-network-stake-offline/",
    "source_type": "aggregator",
    "measures": "share of staked SOL disconnected for ~33 minutes by a routing error at one vendor's Miami facility",
-   "caveat": "Finality needs more than two-thirds of stake, so it halts once more than one-third (about 33.33%) is offline: a margin of about 4.50 points. '33.34%' in secondary coverage is a rounding. Marinade reported that on the day the vendor's network (AS20326) carried 27.34% of stake, 94% of which went offline together. Solana's proposed Alpenglow consensus would raise the crash tolerance to 40% of stake; it had no scheduled mainnet date as of 2026-09-23.",
+   "caveat": "Finality needs more than two-thirds of stake, so it halts once more than one-third (about 33.33%) is offline: a margin of about 4.50 points. '33.34%' in secondary coverage is a rounding. Marinade reported that on the day the vendor's network (AS20326) carried 27.34% of stake, 94% of which went offline together. Solana's proposed Alpenglow consensus would raise the crash tolerance to 40% of stake; it was live on testnet and devnet but not scheduled on mainnet as of 2026-09-25.",
    "status": "verified"
   },
   "sol.teraswitch.share": {
@@ -1249,7 +1249,7 @@
    "source_url": "https://api.fxtwitter.com/Liquid_BTC/status/2097404704028545175",
    "source_type": "primary",
    "measures": "Blockstream Liquid, a federated Bitcoin sidechain (11-of-15 functionaries plus a whitelist of peg-out keys). A cache-key collision in the Elements software's range-proof check let about 4,000 unbacked L-BTC be created; they were pegged out through the normal path and the functionaries signed because their own nodes judged the coins valid. Incident 2026-09-06.",
-   "caveat": "The operator's report: \"No keys were compromised.\" Reserve fell from about 4,205 to 197 BTC before recovery. Fixed in Elements v23.3.4 (2026-09-09). Peg-outs still paused at the 2026-09-17 update. DefiLlama's $320M is the gross amount, not the net loss. The report's own timestamps conflict with the Bitcoin payout block (965,783, 14:28:56 UTC).",
+   "caveat": "The operator's report: \"No keys were compromised.\" Reserve fell from about 4,205 to 197 BTC before recovery. Fixed in Elements v23.3.4 (2026-09-09). Peg-outs still paused at the 2026-09-17 update. DefiLlama's $320M is the gross amount, not the net loss. The report's own timestamps conflict with the Bitcoin payout block (965,783, 14:28:56 UTC). Peg-outs were still paused on 2026-09-25 (liquid.net banner).",
    "status": "verified"
   },
   "interop.2026.liquid.rewind": {
@@ -1343,13 +1343,14 @@
    "status": "verified"
   },
   "sol.alpenglow.status": {
-   "value": "not scheduled on any cluster",
-   "as_of": "2026-09-23",
+   "value": "active on testnet and devnet; not on mainnet",
+   "as_of": "2026-09-25",
    "source_url": "https://github.com/anza-xyz/agave/wiki/v4.3-Release-Schedule",
    "source_type": "primary",
-   "measures": "activation status of the Alpenglow feature gate on mainnet, testnet and devnet",
-   "caveat": "Its white paper says crash-only faults below 40% of stake are always tolerated, against one-third today.",
-   "status": "verified"
+   "measures": "activation of the Alpenglow feature gate (A1pengvuM6JEcyNuTnMqepBKhwHE3N6PmUrdATGawhJS) by cluster, from the on-chain feature account: testnet slot 444,620,256 (2026-09-24), devnet slot 504,144,000 (2026-09-25); no account on mainnet-beta",
+   "caveat": "Its white paper says crash-only faults below 40% of stake are always tolerated, against one-third today. Not scheduled on mainnet as of 2026-09-25; Firedancer does not yet support it.",
+   "status": "verified",
+   "supersedes": "not scheduled on any cluster (2026-09-23)"
   },
   "sol.teraswitch.cause": {
    "value": "a routing-policy error took 13 of 31 sites down for 33 minutes",
@@ -1776,6 +1777,69 @@
    "source_type": "primary",
    "measures": "minimum windows over which data-availability layers serve published data",
    "caveat": "Data availability proves data was published, for a window. It is a different job from keeping data, so these layers are excluded from the persistence slot by definition.",
+   "status": "verified"
+  },
+  "data.ipfs.funding.core": {
+   "value": null,
+   "as_of": null,
+   "source_url": null,
+   "source_type": null,
+   "measures": "announced funding or a named maintainer for Kubo, Boxo, Helia, Rainbow and Someguy, or an operator for the default bootstrap and routing servers, after 2026-09-30",
+   "caveat": "NOT FOUND after checking Protocol Labs, the IPFS Foundation, Filecoin Foundation, FFDW, FilOz, Shipyard fundraising (0 public GitHub sponsors), Pinata, Filebase and Cloudflare. The READMEs of Kubo, Boxo, Rainbow and Someguy read \"no dedicated maintainer\". Kubo issue #11358: \"Shipyard will not ship Kubo 0.44.\"",
+   "searched_as_of": "2026-09-23",
+   "status": "not_found"
+  },
+  "data.ipfs.funding.foundation": {
+   "value": "two maintainers for the in-browser gateway; $200,000 in small tool grants",
+   "as_of": "2026-09-22",
+   "source_url": "https://github.com/ipfs/service-worker-gateway/issues/1197",
+   "source_type": "primary",
+   "measures": "what the IPFS Foundation has taken on: the Service Worker Gateway (two named maintainers) and Shipyard's Cloudflare account; its Data Utilities grants total $200,000 across 9 grants (https://ipfsfoundation.org/ipfs-data-utilities-grants-year-1-primitives-in-motion/)",
+   "caveat": "The grants fund small tools, not the core implementations. The Foundation does not disclose its own funding.",
+   "status": "verified"
+  },
+  "data.ipfs.funding.protocol_labs": {
+   "value": "funds specs, tests, standards and migration paths; no amount named",
+   "as_of": "2026-08-25",
+   "source_url": "https://blog.ipfs.tech/2026-08-beyond-sponsored-gateways/",
+   "source_type": "primary",
+   "measures": "the stated post-Shipyard funding intent: \"specs, tests, routing standards, browser integration, and migration paths\"",
+   "caveat": "No commitment to maintaining the implementations or running the bootstrap and routing servers. The post has no byline.",
+   "status": "verified"
+  },
+  "data.ipfs.funding.dependents_exit": {
+   "value": "Infura, Fleek and Storacha ended their IPFS services",
+   "as_of": "2026-09-15",
+   "source_url": "https://blog.ipfs.tech/2026-fleek-migration/",
+   "source_type": "primary",
+   "measures": "companies that depended on IPFS: Fleek hosting ended 2026-01-31; Infura IPFS ended 2026-08-15; Storacha wound down pinning",
+   "caveat": "Infura's end date comes via a competitor's blog (Filebase). Pinata and Filebase have made no maintenance commitment.",
+   "status": "verified"
+  },
+  "data.ipfs.delegated_routing_probe": {
+   "value": "delegated-ipfs.dev failed its TLS handshake",
+   "as_of": "2026-09-23",
+   "source_url": "https://delegated-ipfs.dev/routing/v1/providers/",
+   "source_type": "computed",
+   "measures": "a live probe from two vantage points of one of the two routing endpoints default Kubo is configured to use",
+   "caveat": "WITHDRAWN 2026-09-25. A re-probe from a different host returned HTTP 200 with providers and a valid certificate (valid 2026-09-17 to 2026-12-16); the earlier handshake failures came from our own client machine, not the server. The endpoint was working on 2026-09-25.",
+   "status": "withdrawn"
+  },
+  "libp2p.funding.grant_cut": {
+   "value": "Go/JS maintenance grant terminated after two months",
+   "as_of": "2026-02-06",
+   "source_url": "https://libp2p.io/reports/annual-reports/2025/",
+   "source_type": "primary",
+   "measures": "libp2p Core Fund: $3,307,800 granted in 2024-25; the Jul-Dec 2025 Go/JS maintenance grant was \"terminated after 2 months\"; no 2026 round found",
+   "caveat": "go-libp2p still ships releases (v0.50.0 on 2026-09-21) from a small group; one maintainer lists himself as working at the Ethereum Foundation. No forward funding announced.",
+   "status": "verified"
+  },
+  "libp2p.dependents": {
+   "value": "Prysm, Lotus and Celestia run go-libp2p",
+   "as_of": "2026-09-23",
+   "source_url": "https://github.com/OffchainLabs/prysm/blob/develop/go.mod",
+   "source_type": "primary",
+   "measures": "go-libp2p versions in the dependency files of Prysm (an Ethereum consensus client, v0.50.0), Filecoin's Lotus (v0.49.0) and Celestia (v0.50.0)",
    "status": "verified"
   }
  }
